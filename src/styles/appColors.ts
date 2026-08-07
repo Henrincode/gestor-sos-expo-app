@@ -12,9 +12,15 @@ const container = {
   text: app.text
 }
 
+const input = {
+  border: container.border,
+  placeholder: app.textMuted
+}
+
 const appColors = {
   ...app,
   container,
+  input
 }
 
 export default appColors
