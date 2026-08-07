@@ -1,7 +1,7 @@
+import appColors from "@/styles/appColors";
 import { useEffect, useState } from "react";
 import { TextInput, TextInputProps } from "react-native";
 import styles from "./styles";
-import appColors from "@/styles/appColors";
 
 type Props = {
   value: TextInputProps['value'];
@@ -11,7 +11,7 @@ type Props = {
   password?: boolean;
 }
 
-export default function Input({ value, setValue, type = 'default', placeholder, password = false }: Props) {
+export default function Input({ value, setValue, type = 'default', placeholder = '', password = false }: Props) {
 
   const [newValue, setNewValue] = useState(value);
 
@@ -27,7 +27,7 @@ export default function Input({ value, setValue, type = 'default', placeholder, 
   useEffect(() => {
     const intervalo = setTimeout(() => {
       setNewValue(value ?? '');
-    }, 10000);
+    }, 1500);
     return () => clearTimeout(intervalo);
   }, [value]);
 
@@ -42,7 +42,7 @@ export default function Input({ value, setValue, type = 'default', placeholder, 
       autoCorrect={!disableAuto}
       style={styles.component}
       placeholderTextColor={appColors.input.placeholder}
-      
+
     />
   );
 }
