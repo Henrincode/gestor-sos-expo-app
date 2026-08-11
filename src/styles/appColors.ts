@@ -26,7 +26,8 @@ const button = {
   bg: tailwindColors.blue['600'],
   bgSuccess: tailwindColors.green['600'],
   bgWarning: tailwindColors.yellow['600'],
-  bgDanger: tailwindColors.red['600']
+  bgDanger: tailwindColors.red['600'],
+  bgNeutral: tailwindColors.neutral['600']
 }
 
 const appColors = {

@@ -4,8 +4,8 @@ import Input from "@/components/Form/Input";
 import InputGroup from "@/components/Form/InputGroup";
 import Label from "@/components/Form/Label";
 import Logo from "@/components/Logo";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { Redirect, router } from "expo-router";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import styles from "./styles";
 
@@ -13,11 +13,7 @@ export default function Index() {
 
   const [value, setValue] = useState('')
 
-  const router = useRouter()
-
-  function click() {
-    router.navigate('/acc/create')
-  }
+  // return <Redirect href={'/acc/create'} />
 
   return (
     <View style={styles.container} >
@@ -35,8 +31,8 @@ export default function Index() {
           <Input value={value} setValue={setValue} placeholder="Su@S3nh@!" password />
         </InputGroup>
         <View style={styles.buttons}>
-          <Button onPress={click} text="Entrar" flex />
-          <Button text="Cadastrar" flex />
+          <Button onPress={() => router.push('/dashboard')} text="Entrar" flex />
+          <Button onPress={() => router.push('/acc/create')} text="Cadastrar" flex />
         </View>
       </Container>
     </View>
