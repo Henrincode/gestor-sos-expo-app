@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
     padding: 8,
-    borderRadius: 20,
+    borderRadius: 10,
     borderWidth: 2,
     borderColor: tailwindColors.blue['950'] + '1A',
     backgroundColor: tailwindColors.blue['200'] + '4D',

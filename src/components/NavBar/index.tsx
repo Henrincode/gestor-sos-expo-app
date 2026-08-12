@@ -8,7 +8,6 @@ export default function NavBar() {
   const path = usePathname()
 
   return (
-    <View style={styles.container}>
       <View style={styles.navBar}>
         <NavBarButton
           text="Ordens"
@@ -31,6 +30,5 @@ export default function NavBar() {
           onPress={() => path !== '/dashboard/settings' && router.push('/dashboard/settings')}
         />
       </View>
-    </View>
   )
 }

@@ -20,7 +20,7 @@ export default function NavBarButton({ text = 'Sem texto', icon = 'help', color 
   const isActive: ViewStyle = active ? {
     // borderBottomWidth: 2,
     boxShadow: `0px 2px 0px ${tailwindColors.blue[950]}80`,
-    borderRadius: 6,
+    borderRadius: 10,
     borderColor: color + '80',
     backgroundColor: tailwindColors.blue['200']
   } : {}
