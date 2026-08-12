@@ -19,9 +19,9 @@ export default function Index() {
   function teste() {
 
     let msg = ''
-    msg += name + '\n'
-    msg += email + '\n'
-    msg += password === passwordConfir && password.trim() !== '' && passwordConfir.trim() !== '' ? 'Senha confere' : 'Senha não confere'
+    msg += name.trim() !== '' ? name.trim() + '\n' : 'O campo Nome deve ser preenchido' + '\n'
+    msg += email.trim() !== '' ? email.trim() + '\n' : 'O campo E-Mail deve ser preenchido.' + '\n'
+    msg += password.trim() === '' ? 'O campo senha deve ser preenchido.' : password === passwordConfir ? 'Senha confere' : 'Senha não confere'
 
     Alert.alert(
       'teste',

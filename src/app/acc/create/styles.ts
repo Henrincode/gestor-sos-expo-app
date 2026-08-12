@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 20
+    gap: 10
 
   },
   backText: {
