@@ -7,10 +7,10 @@ export default function Index() {
   return (
     <Scroll nav style={styles.container}>
       {/* <View style={{backgroundColor: 'red'}}> */}
-      <Input value="" setValue={() => { }} />
-        {Array.from({ length: 110 }, (_, i) => (
+        {Array.from({ length: 60 }, (_, i) => (
           <Text key={i}>{i}</Text>
         ))}
+        <Input value="" setValue={() => { }} />
       {/* </View> */}
     </Scroll>
   )

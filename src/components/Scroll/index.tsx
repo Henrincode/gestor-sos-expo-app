@@ -1,9 +1,8 @@
-import appColors from "@/styles/appColors"
 import { StatusBar } from "expo-status-bar"
 import { ReactNode } from "react"
-import { KeyboardAvoidingView, ScrollView, View, ViewStyle } from "react-native"
+import { View, ViewStyle } from "react-native"
+import { KeyboardAwareScrollView } from "react-native-keyboard-controller"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { KeyboardAwareScrollView } from "react-native-keyboard-controller";
 
 const NAVBAR_HEIGHT = 120
 
@@ -30,11 +29,11 @@ export default function Scroll({ children, style = {}, nav = false }: Props) {
         contentContainerStyle={[
           { paddingTop: insets.top, paddingBottom },
           style,
-          { flexGrow: 1 },
+          { flex: 0, flexGrow: 1 },
         ]}
       >
-          {children}
-          {/* <View style={{height: 2, backgroundColor: appColors.button}}></View> */}
+        {children}
+        {/* <View style={{height: 2, backgroundColor: appColors.button}}></View> */}
       </KeyboardAwareScrollView>
 
     </View>
