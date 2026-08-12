@@ -5,7 +5,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text>
-        Logar
+        Ordens
       </Text>
     </View>
   )
