@@ -1,11 +1,13 @@
-import { Text, View } from "react-native";
+import Scroll from "@/components/Scroll";
+import { Text } from "react-native";
+import styles from "./styles";
 
-export default function New() {
+export default function Index() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <Scroll nav style={styles.container}>
       <Text>
-        Nova OS
+        Olá Mundo!
       </Text>
-    </View>
+    </Scroll>
   )
 }

@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     component: {
+        width: '100%',
         padding: 10,
         borderWidth: 1,
         borderRadius: 6,

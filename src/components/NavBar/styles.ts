@@ -2,14 +2,6 @@ import tailwindColors from "@/styles/tailwindColors";
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'static',
-    width: '100%',
-    height: 60,
-    // backgroundColor: 'red',
-    // justifyContent: 'center',
-    // alignItems: 'center'
-  },
   navBar: {
     position: 'absolute',
     bottom: 40,

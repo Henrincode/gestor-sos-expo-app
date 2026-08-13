@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
     backgroundColor: appColors.button.bg
   },
   text: {

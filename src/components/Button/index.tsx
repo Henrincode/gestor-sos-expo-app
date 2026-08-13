@@ -13,23 +13,38 @@ type Props = TouchableOpacityProps & {
   text: string
   size?: number
   width?: DimensionValue
-  padding?: number
+  padding?: number[]
+  radius?: number
   type?: keyof typeof bgMap
   flex?: boolean
 }
 
-export default function Button({ text, size = 20, padding = 10, type = 'default', width = '100%', onPress, flex, ...rest }: Props) {
+export default function Button({
+  text,
+  size = 20,
+  width = '100%',
+  padding = [10, 10],
+  radius = 10,
+  type = 'default',
+  flex,
+  onPress,
+  disabled = false,
+  ...rest
+}: Props) {
 
   const bg = bgMap[type]
 
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={disabled}
       style={[
         styles.container,
         {
-          padding: padding,
-          backgroundColor: appColors.button[bg]
+          paddingHorizontal: padding[0],
+          paddingVertical: padding[1],
+          borderRadius: radius,
+          backgroundColor: disabled ? appColors.button[bg] : appColors.button[bg] + '70'
         },
         flex ? { flex: 1 } : { width: width }
       ]}

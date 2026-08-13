@@ -1,3 +1,4 @@
+import tailwindColors from "@/styles/tailwindColors"
 import { StatusBar } from "expo-status-bar"
 import { ReactNode } from "react"
 import { View, ViewStyle } from "react-native"
@@ -27,13 +28,16 @@ export default function Scroll({ children, style = {}, nav = false }: Props) {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[
-          { paddingTop: insets.top, paddingBottom },
-          style,
-          { flex: 0, flexGrow: 1 },
+          { flex: 0, flexGrow: 1, paddingTop: insets.top + 10, paddingBottom }
         ]}
       >
-        {children}
-        {/* <View style={{height: 2, backgroundColor: appColors.button}}></View> */}
+        <View style={[
+          style,
+          { flex: 0, flexGrow: 1, width: '100%' },
+        ]}>
+          {children}
+        </View>
+        <View style={{ width: '100%', height: 1, marginTop: 20, backgroundColor: tailwindColors.blue['200'] }}></View>
       </KeyboardAwareScrollView>
 
     </View>
