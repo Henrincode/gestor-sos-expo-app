@@ -1,17 +1,32 @@
+import Icon from "@/components/Icon";
 import appColors from "@/styles/appColors";
-import { useEffect, useState } from "react";
-import { TextInput, TextInputProps } from "react-native";
+import { ComponentProps, useEffect, useState } from "react";
+import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import styles from "./styles";
 
 type Props = {
-  value: TextInputProps['value'];
-  setValue: (param: string) => void;
-  type?: TextInputProps['keyboardType'];
-  placeholder?: string;
-  password?: boolean;
+  value: TextInputProps['value']
+  setValue: (param: string) => void
+  size?: number
+  type?: TextInputProps['keyboardType']
+  placeholder?: string
+  placeholderStyle?: TextInputProps['placeholderTextColor']
+  icon?: ComponentProps<typeof Icon>['name']
+  style?: ViewStyle
+  password?: boolean
 }
 
-export default function Input({ value, setValue, type = 'default', placeholder = '', password = false }: Props) {
+export default function Input({
+  value,
+  setValue,
+  size = 24,
+  type = 'default',
+  placeholder = '',
+  placeholderStyle = appColors.input.placeholder,
+  icon,
+  style,
+  password = false
+}: Props) {
 
   const [newValue, setNewValue] = useState(value);
 
@@ -24,25 +39,30 @@ export default function Input({ value, setValue, type = 'default', placeholder =
     || type === 'number-pad'
     || type === 'numbers-and-punctuation'
 
-  useEffect(() => {
-    const intervalo = setTimeout(() => {
-      setNewValue(value ?? '');
-    }, 1500);
-    return () => clearTimeout(intervalo);
-  }, [value]);
+  // useEffect(() => {
+  //   const intervalo = setTimeout(() => {
+  //     setNewValue(value ?? '');
+  //   }, 1500);
+  //   return () => clearTimeout(intervalo);
+  // }, [value]);
+
+  useEffect(() => setNewValue(value), [])
 
   return (
-    <TextInput
-      defaultValue={newValue}
-      onChangeText={setValue}
-      keyboardType={type}
-      placeholder={placeholder}
-      secureTextEntry={password}
-      autoCapitalize={disableAuto ? 'none' : 'sentences'}
-      autoCorrect={!disableAuto}
-      style={styles.component}
-      placeholderTextColor={appColors.input.placeholder}
+    <View style={[styles.component, style]}>
+      {icon && <Icon name={icon} size={size * 1.3} />}
+      <TextInput
+        defaultValue={newValue}
+        onChangeText={setValue}
+        keyboardType={type}
+        placeholder={placeholder}
+        secureTextEntry={password}
+        autoCapitalize={disableAuto ? 'none' : 'sentences'}
+        autoCorrect={!disableAuto}
+        placeholderTextColor={placeholderStyle}
+        style={{ flex: 1, fontSize: size }}
 
-    />
+      />
+    </View>
   );
 }

@@ -37,7 +37,7 @@ export default function Scroll({ children, style = {}, nav = false }: Props) {
         ]}>
           {children}
         </View>
-        <View style={{ width: '100%', height: 1, marginTop: 20, backgroundColor: tailwindColors.blue['200'] }}></View>
+        {/* <View style={{ width: '100%', height: 1, marginTop: 20, backgroundColor: tailwindColors.blue['200'] }}></View> */}
       </KeyboardAwareScrollView>
 
     </View>

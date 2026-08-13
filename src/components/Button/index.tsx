@@ -17,6 +17,7 @@ type Props = TouchableOpacityProps & {
   radius?: number
   type?: keyof typeof bgMap
   flex?: boolean
+  background?: string
 }
 
 export default function Button({
@@ -27,12 +28,12 @@ export default function Button({
   radius = 10,
   type = 'default',
   flex,
+  background,
   onPress,
   disabled = false,
-  ...rest
 }: Props) {
 
-  const bg = bgMap[type]
+  const bg = background ? background : appColors.button[bgMap[type]] 
 
   return (
     <TouchableOpacity
@@ -44,7 +45,7 @@ export default function Button({
           paddingHorizontal: padding[0],
           paddingVertical: padding[1],
           borderRadius: radius,
-          backgroundColor: disabled ? appColors.button[bg] : appColors.button[bg] + '70'
+          backgroundColor: disabled ? bg + '70' : bg
         },
         flex ? { flex: 1 } : { width: width }
       ]}
