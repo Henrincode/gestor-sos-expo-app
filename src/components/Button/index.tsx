@@ -50,7 +50,7 @@ export default function Button({
         flex ? { flex: 1 } : { width: width }
       ]}
     >
-      <Text style={[styles.text, { fontSize: size }]}>
+      <Text style={[styles.text, { fontSize: size, fontWeight: 'bold' }]}>
         {text}
       </Text>
     </TouchableOpacity>
