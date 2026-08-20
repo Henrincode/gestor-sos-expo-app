@@ -1,4 +1,4 @@
-const tailwindColors = {
+const tw = {
   inherit: 'inherit',
   current: 'currentColor',
   transparent: 'transparent',
@@ -292,4 +292,4 @@ const tailwindColors = {
   }
 }
 
-export default tailwindColors
+export default tw

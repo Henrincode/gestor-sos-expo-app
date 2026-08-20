@@ -1,4 +1,5 @@
 import Button from "@/components/Button";
+import CardOS from "@/components/Card/Os";
 import Input from "@/components/Form/Input";
 import Scroll from "@/components/Scroll";
 import appColors from "@/styles/appColors";
@@ -18,13 +19,16 @@ export default function New() {
 
   return (
     <Scroll nav style={styles.container}>
-      <View style={{gap: 10}}>
+      <View style={{ gap: 10 }}>
+        {/* wrapper */}
         <View style={{ gap: 10, paddingLeft: 10, paddingRight: 10, width: '100%', }}>
           <Input
             value={search} setValue={setSearch} placeholder="Pesquisar solicitações"
             icon="clipboard-search" style={{ backgroundColor: tailwindColors.white }}
           />
         </View>
+
+        {/* buttons */}
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -39,7 +43,7 @@ export default function New() {
 
           {FILTER_LIST.map(f => (
             <Button
-              key={f} text={f} size={14} padding={[10,8]} radius={999} width={'auto'}
+              key={f} text={f} size={14} padding={[10, 8]} radius={999} width={'auto'}
               onPress={() => setFilter(f)} background={filter === f ? appColors.button.bg : appColors.button.bg + '70'}
             />
           ))}
@@ -48,10 +52,15 @@ export default function New() {
       </View>
 
       {/* osList */}
-      <View style={{ width: '100%', paddingHorizontal: 10 }}>
+      <View style={{ gap: 10, width: '100%', paddingHorizontal: 10 }}>
         <Text style={{ fontSize: 24 }}>Lista de OS</Text>
+        <CardOS status="completed" />
+        <CardOS status="in_progress" />
+        <CardOS status="pending" />
+        <CardOS status="completed" />
+        <CardOS status="in_progress" />
+        <CardOS status="pending" />
       </View>
-      <Text>{filter} {search}</Text>
     </Scroll>
   )
 }
