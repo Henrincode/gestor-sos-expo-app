@@ -31,8 +31,8 @@ export default function Index() {
           <Input value={value} setValue={setValue} placeholder="Su@S3nh@!" password />
         </InputGroup>
         <View style={styles.buttons}>
-          <Button onPress={() => router.push('/dashboard')} text="Entrar" flex />
-          <Button onPress={() => router.push('/acc/create')} text="Cadastrar" flex />
+          <Button onPress={() => router.replace('/dashboard')} text="Entrar" flex />
+          <Button onPress={() => router.replace('/acc/create')} text="Cadastrar" flex />
         </View>
       </Container>
     </View>
