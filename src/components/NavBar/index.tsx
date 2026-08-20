@@ -2,13 +2,15 @@ import { router, usePathname } from "expo-router"
 import { View } from "react-native"
 import NavBarButton from "./NavBarButton"
 import styles from "./styles"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export default function NavBar() {
 
+  const insets = useSafeAreaInsets()
   const path = usePathname()
 
   return (
-      <View style={styles.navBar}>
+      <View style={[styles.navBar, {marginBottom: insets.bottom + 10}]}>
         <NavBarButton
           text="Ordens"
           icon="clipboard-text"

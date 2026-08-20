@@ -1,11 +1,10 @@
-import tailwindColors from "@/styles/tailwindColors"
 import { StatusBar } from "expo-status-bar"
 import { ReactNode } from "react"
 import { View, ViewStyle } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-const NAVBAR_HEIGHT = 120
+const NAVBAR_HEIGHT = 100
 
 type Props = {
   children: ReactNode
