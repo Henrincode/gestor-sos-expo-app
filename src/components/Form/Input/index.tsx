@@ -60,7 +60,7 @@ export default function Input({
         autoCapitalize={disableAuto ? 'none' : 'sentences'}
         autoCorrect={!disableAuto}
         placeholderTextColor={placeholderStyle}
-        style={{ flex: 1, fontSize: size }}
+        style={{ flex: 1, fontSize: size, paddingVertical: 10, paddingHorizontal: 4 }}
 
       />
     </View>

@@ -6,6 +6,7 @@ import tw from "@/styles/tailwindColors";
 import { useState } from "react";
 import { Text, View } from "react-native";
 import styles from "./styles";
+import Select from "@/components/Form/Select";
 
 export default function Index() {
 
@@ -36,6 +37,9 @@ export default function Index() {
             style={{ backgroundColor: 'white' }}
           />
         </InputGroup>
+        <View style={{}}>
+          <Select />
+        </View>
       </View>
     </Scroll>
   )
