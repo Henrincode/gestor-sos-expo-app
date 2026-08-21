@@ -1,12 +1,12 @@
 import Input from "@/components/Form/Input";
 import InputGroup from "@/components/Form/InputGroup";
 import Label from "@/components/Form/Label";
+import Select from "@/components/Form/Select";
 import Scroll from "@/components/Scroll";
 import tw from "@/styles/tailwindColors";
 import { useState } from "react";
 import { Text, View } from "react-native";
 import styles from "./styles";
-import Select from "@/components/Form/Select";
 
 export default function Index() {
 
@@ -37,10 +37,17 @@ export default function Index() {
             style={{ backgroundColor: 'white' }}
           />
         </InputGroup>
-        <View style={{}}>
-          <Select />
+        <View style={{ flexDirection: 'row', gap: 20 }}>
+          <InputGroup style={{ flex: 1 }}>
+            <Label icon="domain" text="Setor" />
+            <Select />
+          </InputGroup>
+          <InputGroup style={{ flex: 1 }}>
+            <Label icon="domain" text="Setor" />
+            <Select />
+          </InputGroup>
         </View>
       </View>
-    </Scroll>
+    </Scroll >
   )
 }
