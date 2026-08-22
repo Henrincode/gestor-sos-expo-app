@@ -9,7 +9,7 @@ const setoresData = [
   { label: 'Recursos Humanos', value: '1', icon: 'people-outline' },
   { label: 'Financeiro e Controladoria', value: '2', icon: 'cash-outline' },
   { label: 'Tecnologia da Informação e Comunicação', value: '3', icon: 'hardware-chip-outline' },
-  { label: 'Marketing e Comunicação', value: '4', icon: 'megamenu-outline' },
+  { label: 'Marketing e Comunicação', value: '4', icon: 'home' },
   { label: 'Pesquisa e Desenvolvimento', value: '5', icon: 'flask-outline' },
 ];
 
@@ -22,14 +22,14 @@ export default function Select() {
         data={setoresData}
         onSelect={(selectedItem) => setValue(selectedItem.value)}
         showsVerticalScrollIndicator={false}
-        
+
         // 1. Botão Fechado com Text Nativo
         renderButton={(selectedItem) => (
           <View style={styles.dropdownButton}>
             {selectedItem && (
               <Ionicons name={selectedItem.icon as any} size={22} color="#333" style={styles.buttonIcon} />
             )}
-            
+
             <Text
               style={selectedItem ? styles.selectedText : styles.placeholderText}
               numberOfLines={1}
@@ -37,7 +37,7 @@ export default function Select() {
             >
               {selectedItem ? selectedItem.label : 'Selecione...'}
             </Text>
-            
+
             <Ionicons name="chevron-down" size={20} color="#666" />
           </View>
         )}
@@ -55,9 +55,9 @@ export default function Select() {
               ]}
             >
               <Ionicons name={item.icon as any} size={20} color="#444" style={styles.itemIcon} />
-              
-              <Text 
-                style={styles.dropdownItemText} 
+
+              <Text
+                style={styles.dropdownItemText}
                 numberOfLines={1}
                 ellipsizeMode="tail"
               >
@@ -74,25 +74,29 @@ export default function Select() {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-  },
-  dropdownButton: {
-    width: '100%',
-    height: 52,
-    backgroundColor: '#FFF',
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: appColors.input.border || '#CCC',
-    paddingHorizontal: 12,
     flexDirection: 'row',
     alignItems: 'center',
+    gap: 5,
+    width: '100%',
+    borderWidth: 1,
+    borderRadius: 6,
+    borderColor: appColors.input.border,
+    paddingHorizontal: 10,
+    backgroundColor: 'white'
+  },
+  dropdownButton: {
+    // flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 4,
+    paddingVertical: 10,
   },
   buttonIcon: {
     marginRight: 8,
   },
   placeholderText: {
     flex: 1,
-    fontSize: 18,
+    fontSize: 24,
     color: appColors.input.placeholder || '#999',
   },
   selectedText: {
