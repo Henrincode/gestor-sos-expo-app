@@ -40,21 +40,21 @@ export default function NavBar() {
         text="Ordens"
         icon="clipboard-text"
         active={path === '/dashboard'}
-        onPress={() => path !== '/dashboard' && router.replace('/dashboard')}
+        onPress={() => path !== '/dashboard' && router.push('/dashboard')}
       />
 
       <NavBarButton
         text="Nova OS"
         icon="clipboard-plus"
         active={path === '/dashboard/new'}
-        onPress={() => path !== '/dashboard/new' && router.replace('/dashboard/new')}
+        onPress={() => path !== '/dashboard/new' && router.push('/dashboard/new')}
       />
 
       <NavBarButton
         text="Perfil"
         icon="account"
         active={path === '/dashboard/settings'}
-        onPress={() => path !== '/dashboard/settings' && router.replace('/dashboard/settings')}
+        onPress={() => path !== '/dashboard/settings' && router.push('/dashboard/settings')}
       />
     </View>
   )

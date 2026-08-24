@@ -1,9 +1,15 @@
 import appColors from '@/styles/appColors';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
-// 1. Importe o Text nativo do react-native
-import { StyleSheet, Text, View } from 'react-native';
-import SelectDropdown from 'react-native-select-dropdown';
+import {
+  FlatList,
+  Modal,
+  Pressable,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const setoresData = [
   { label: 'Recursos Humanos', value: '1', icon: 'people-outline' },
@@ -14,89 +20,108 @@ const setoresData = [
 ];
 
 export default function Select() {
-  const [value, setValue] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<{ label: string; value: string; icon: string } | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleSelect = (item: typeof setoresData[0]) => {
+    setSelectedItem(item);
+    setModalVisible(false);
+  };
 
   return (
     <View style={styles.container}>
-      <SelectDropdown
-        data={setoresData}
-        onSelect={(selectedItem) => setValue(selectedItem.value)}
-        showsVerticalScrollIndicator={false}
-
-        // 1. Botão Fechado com Text Nativo
-        renderButton={(selectedItem) => (
-          <View style={styles.dropdownButton}>
-            {selectedItem && (
-              <Ionicons name={selectedItem.icon as any} size={22} color="#333" style={styles.buttonIcon} />
-            )}
-
-            <Text
-              style={selectedItem ? styles.selectedText : styles.placeholderText}
-              numberOfLines={1}
-              ellipsizeMode="tail"
-            >
-              {selectedItem ? selectedItem.label : 'Selecione...'}
-            </Text>
-
-            <Ionicons name="chevron-down" size={20} color="#666" />
-          </View>
+      {/* Botão do Campo */}
+      <TouchableOpacity
+        style={styles.dropdownButton}
+        activeOpacity={0.7}
+        onPress={() => setModalVisible(true)}
+      >
+        {selectedItem && (
+          <Ionicons name={selectedItem.icon as any} size={22} color="#333" style={styles.buttonIcon} />
         )}
 
-        // 2. Itens da Lista com Text Nativo
-        renderItem={(item, index, isSelected) => {
-          const isEven = index % 2 === 0;
+        <Text
+          style={selectedItem ? styles.selectedText : styles.placeholderText}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {selectedItem ? selectedItem.label : 'Selecione...'}
+        </Text>
 
-          return (
-            <View
-              style={[
-                styles.dropdownItem,
-                { backgroundColor: isEven ? '#F8F9FA' : '#FFFFFF' },
-                isSelected && { backgroundColor: '#E0E7FF' },
-              ]}
-            >
-              <Ionicons name={item.icon as any} size={20} color="#444" style={styles.itemIcon} />
+        <Ionicons name="chevron-down" size={20} color="#666" />
+      </TouchableOpacity>
 
-              <Text
-                style={styles.dropdownItemText}
-                numberOfLines={1}
-                ellipsizeMode="tail"
-              >
-                {item.label}
-              </Text>
-            </View>
-          );
-        }}
-        dropdownStyle={styles.dropdownMenu}
-      />
+      {/* Modal Centralizado */}
+      <Modal
+        statusBarTranslucent={true}
+        navigationBarTranslucent={true}
+        visible={modalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
+          {/* Evita fechar o modal ao clicar dentro do conteúdo */}
+          <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
+            <Text style={styles.modalTitle}>Selecione o Setor</Text>
+
+            <FlatList
+              data={setoresData}
+              keyExtractor={(item) => item.value}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }) => {
+                const isEven = index % 2 === 0;
+                const isSelected = selectedItem?.value === item.value;
+
+                return (
+                  <TouchableOpacity
+                    activeOpacity={0.5}
+                    onPress={() => handleSelect(item)}
+                    style={[
+                      styles.dropdownItem,
+                      { backgroundColor: !isEven ? '#f3f3f3' : '#FFFFFF' },
+                      isSelected && { backgroundColor: '#E0E7FF' },
+                    ]}
+                  >
+                    {item?.icon && <Ionicons name={item.icon as any} size={20} color="#444" style={styles.itemIcon} />}
+                    <Text
+                      style={styles.dropdownItemText}
+                      numberOfLines={1}
+                      ellipsizeMode="tail"
+                    >
+                      {item.label}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              }}
+            />
+          </Pressable>
+        </Pressable>
+      </Modal>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
     width: '100%',
     borderWidth: 1,
     borderRadius: 6,
     borderColor: appColors.input.border,
-    paddingHorizontal: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   dropdownButton: {
-    // flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 4,
-    paddingVertical: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
   buttonIcon: {
     marginRight: 8,
   },
   placeholderText: {
     flex: 1,
-    fontSize: 24,
+    fontSize: 18,
     color: appColors.input.placeholder || '#999',
   },
   selectedText: {
@@ -105,18 +130,41 @@ const styles = StyleSheet.create({
     color: '#333333',
     fontWeight: '500',
   },
-  dropdownMenu: {
-    backgroundColor: '#FFF',
+  // Estilos do Modal Centralizado
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 0,
+  },
+  modalContent: {
+    width: '90%',
+    maxHeight: '60%',
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
-    elevation: 4,
+    elevation: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    overflow: 'hidden',
+  },
+  modalTitle: {
+    fontSize: 16,
+    textAlign: 'center',
+    // backgroundColor: 'red',
+    fontWeight: '600',
+    color: '#333',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 3,
+    borderBottomColor: '#EEEEEE',
+    // marginBottom: 4,
   },
   dropdownItem: {
     width: '100%',
-    height: 48,
+    height: 52,
     paddingHorizontal: 16,
     flexDirection: 'row',
     alignItems: 'center',
