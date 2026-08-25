@@ -63,7 +63,7 @@ export default function Select() {
         <Pressable style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
           {/* Evita fechar o modal ao clicar dentro do conteúdo */}
           <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
-            <Text style={styles.modalTitle}>Selecione o Setor</Text>
+            <Text style={styles.modalTitle}>Selecione o item</Text>
 
             <FlatList
               data={setoresData}
