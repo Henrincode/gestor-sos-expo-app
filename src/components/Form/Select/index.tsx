@@ -19,7 +19,17 @@ const setoresData = [
   { label: 'Pesquisa e Desenvolvimento', value: '5', icon: 'flask-outline' },
 ];
 
-export default function Select() {
+interface Props {
+  data?: {
+    label: string
+    value: number
+    icon?: string
+  },
+  title?: string
+  placeHolder?: string
+}
+
+export default function Select({data, title = 'Selecione o item', placeHolder = "Selecione..."}: Props) {
   const [selectedItem, setSelectedItem] = useState<{ label: string; value: string; icon: string } | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -45,7 +55,7 @@ export default function Select() {
           numberOfLines={1}
           ellipsizeMode="tail"
         >
-          {selectedItem ? selectedItem.label : 'Selecione...'}
+          {selectedItem ? selectedItem.label : placeHolder}
         </Text>
 
         <Ionicons name="chevron-down" size={20} color="#666" />
@@ -63,7 +73,7 @@ export default function Select() {
         <Pressable style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
           {/* Evita fechar o modal ao clicar dentro do conteúdo */}
           <Pressable style={styles.modalContent} onPress={(e) => e.stopPropagation()}>
-            <Text style={styles.modalTitle}>Selecione o item</Text>
+            <Text style={styles.modalTitle}>{title}</Text>
 
             <FlatList
               data={setoresData}
