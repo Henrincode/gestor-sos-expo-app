@@ -24,7 +24,7 @@ export default function New() {
         <View style={{ gap: 10, paddingLeft: 10, paddingRight: 10, width: '100%', }}>
           <Input
             value={search} setValue={setSearch} placeholder="Pesquisar solicitações"
-            icon="clipboard-search" style={{ backgroundColor: tailwindColors.white }}
+            icon="search-circle" style={{ backgroundColor: tailwindColors.white }}
           />
         </View>
 

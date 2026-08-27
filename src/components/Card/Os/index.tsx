@@ -48,7 +48,7 @@ export default function CardOS({ status = 'pending' }: Props) {
           <View style={styles.main}>
             {/* icon */}
             <View style={styles.iconContent}>
-              <Icon name='hammer-screwdriver' size={36} color={tw.blue['950']} />
+              <Icon name='build' size={36} color={tw.blue['950']} />
             </View>
             {/* texts */}
             <View>
@@ -59,12 +59,12 @@ export default function CardOS({ status = 'pending' }: Props) {
           <View style={styles.line}></View>
           <View style={styles.bottom}>
             <View style={styles.bottonText}>
-              <Icon name="calendar-blank" size={styles.bottonText.fontSize} />
+              <Icon name="calendar-outline" size={styles.bottonText.fontSize} />
               <Text style={styles.bottonText}>10/08/2026</Text>
               <Text style={styles.bottonText}>•</Text>
               <Text style={styles.bottonText}>Prioridade NORMAL.</Text>
             </View>
-            <Icon name="chevron-right" size={styles.bottonText.fontSize} />
+            <Icon name="chevron-forward-circle" size={styles.bottonText.fontSize} />
           </View>
         </View>
       </View>

@@ -1,6 +1,7 @@
+import Icon from '@/components/Icon';
 import appColors from '@/styles/appColors';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { ComponentProps, useState } from 'react';
 import {
   FlatList,
   Modal,
@@ -11,29 +12,28 @@ import {
   View,
 } from 'react-native';
 
-const setoresData = [
-  { label: 'Recursos Humanos', value: '1', icon: 'people-outline' },
-  { label: 'Financeiro e Controladoria', value: '2', icon: 'cash-outline' },
-  { label: 'Tecnologia da Informação e Comunicação', value: '3', icon: 'hardware-chip-outline' },
-  { label: 'Marketing e Comunicação', value: '4', icon: 'home' },
-  { label: 'Pesquisa e Desenvolvimento', value: '5', icon: 'flask-outline' },
-];
+const DATA: SelectItem[] = [
+  { label: 'Sem itens', value: '0', icon: 'alert-circle' }
+]
+
+export interface SelectItem {
+  label: string
+  value: string
+  icon?: ComponentProps<typeof Icon>['name']
+  color?: string
+}
 
 interface Props {
-  data?: {
-    label: string
-    value: number
-    icon?: string
-  },
+  data: SelectItem[],
   title?: string
   placeHolder?: string
 }
 
-export default function Select({data, title = 'Selecione o item', placeHolder = "Selecione..."}: Props) {
-  const [selectedItem, setSelectedItem] = useState<{ label: string; value: string; icon: string } | null>(null);
+export default function Select({ data = DATA, title = 'Selecione o item', placeHolder = "Selecione..." }: Props) {
+  const [selectedItem, setSelectedItem] = useState<SelectItem | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const handleSelect = (item: typeof setoresData[0]) => {
+  const handleSelect = (item: SelectItem) => {
     setSelectedItem(item);
     setModalVisible(false);
   };
@@ -76,12 +76,12 @@ export default function Select({data, title = 'Selecione o item', placeHolder = 
             <Text style={styles.modalTitle}>{title}</Text>
 
             <FlatList
-              data={setoresData}
+              data={data}
               keyExtractor={(item) => item.value}
               showsVerticalScrollIndicator={false}
               renderItem={({ item, index }) => {
                 const isEven = index % 2 === 0;
-                const isSelected = selectedItem?.value === item.value;
+                const isSelected = selectedItem?.value === item.value
 
                 return (
                   <TouchableOpacity
@@ -93,9 +93,9 @@ export default function Select({data, title = 'Selecione o item', placeHolder = 
                       isSelected && { backgroundColor: '#E0E7FF' },
                     ]}
                   >
-                    {item?.icon && <Ionicons name={item.icon as any} size={20} color="#444" style={styles.itemIcon} />}
+                    {item?.icon && <Icon name={item.icon} size={20} color={item?.color ? item.color : "#444"} />}
                     <Text
-                      style={styles.dropdownItemText}
+                      style={[styles.dropdownItemText, item?.color ? {color: item.color}: {}]}
                       numberOfLines={1}
                       ellipsizeMode="tail"
                     >
@@ -173,11 +173,12 @@ const styles = StyleSheet.create({
     // marginBottom: 4,
   },
   dropdownItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
     width: '100%',
     height: 52,
     paddingHorizontal: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
   },
   itemIcon: {
     marginRight: 10,

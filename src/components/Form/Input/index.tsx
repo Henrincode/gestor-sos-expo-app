@@ -14,6 +14,8 @@ type Props = {
   icon?: ComponentProps<typeof Icon>['name']
   style?: ViewStyle
   password?: boolean
+  multiline?: boolean
+  numberOfLines?: number
 }
 
 export default function Input({
@@ -25,7 +27,9 @@ export default function Input({
   placeholderStyle = appColors.input.placeholder,
   icon,
   style,
-  password = false
+  password = false,
+  multiline = false,
+  numberOfLines = undefined
 }: Props) {
 
   const [newValue, setNewValue] = useState(value);
@@ -52,6 +56,9 @@ export default function Input({
     <View style={[styles.component, style]}>
       {icon && <Icon name={icon} size={size * 1.3} />}
       <TextInput
+        multiline={multiline}
+        numberOfLines={numberOfLines || 4}
+        textAlignVertical="top"
         defaultValue={newValue}
         onChangeText={setValue}
         keyboardType={type}
@@ -60,7 +67,7 @@ export default function Input({
         autoCapitalize={disableAuto ? 'none' : 'sentences'}
         autoCorrect={!disableAuto}
         placeholderTextColor={placeholderStyle}
-        style={{ flex: 1, fontSize: size, paddingVertical: 10, paddingHorizontal: 4 }}
+        style={[{ flex: 1, fontSize: size, paddingVertical: 10, paddingHorizontal: 4 }, multiline && { height: 200 }]}
 
       />
     </View>
