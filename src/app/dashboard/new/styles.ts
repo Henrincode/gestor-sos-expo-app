@@ -8,10 +8,14 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 12,
+    gap: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   itemAdd: {
-    width: "30%",
+    // flex: 1,
+    // width: 100,
+    width: '30%',
     aspectRatio: 1,
     borderWidth: 2,
     borderColor: '#BBB',
@@ -30,7 +34,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   item: {
-    width: 'calc(33.333% - 8px)' as any,
+    width: '30%',
     aspectRatio: 1,
     borderRadius: 16,
     overflow: 'hidden',

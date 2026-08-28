@@ -9,6 +9,7 @@ import { Image } from "expo-image";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
+import Button from "@/components/Button";
 
 
 const SETORES: SelectItem[] = [
@@ -25,7 +26,13 @@ const PRIORIDADE: SelectItem[] = [
   { label: 'Alta', value: '3', icon: "alert-circle", color: 'red' },
 ]
 
-const FOTOS = ['https://docs.expo.dev/static/images/packages/expo-image.png']
+const FOTOS = [
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCMXqbo-JPCu6IX58mv76yA0Pmi2OPBvGNBfT1xYVNKg&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_WHd4ESbtuq5Evntj0bXsvf2oGUFnZtoq4amm-1IhoQ&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtHm2iX5Dn4SrBAsELuu7g-BVJc5X1U1fzoHuhBxbOGA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZ81Q8HqHFgDkuA6f6yNg_ly8ML8VpvJZW0_iMhtL7DA&s=10',
+  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvqCRomMSfElSfyWuapmhr30FsoULh2Gt6adgAGWq9MA&s=10,'
+]
 
 
 export default function Index() {
@@ -85,29 +92,20 @@ export default function Index() {
           <Input
             value={teste}
             setValue={setTeste}
-            placeholder="Ex: Prédio 4, sala ADM"
+            placeholder={`Ex: Problemas na tomada do computador da Ana.\nO computador esta desligando depois de 5min.`}
+            size={16}
             multiline
             style={{ backgroundColor: 'white' }}
           />
         </InputGroup>
 
         {/* lista de fotos */}
-        <InputGroup>
+        <InputGroup gap={10}>
           <Label icon="camera" text="Anexar fotos" />
 
           {/* Container Grid */}
           <View style={styles.grid}>
             {/* Botão de adicionar foto */}
-            <TouchableOpacity style={styles.itemAdd} onPress={() => { }}>
-              <Icon name="camera-outline" size={32} color="#888" />
-              <Text style={styles.addText}>Adicionar foto</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.itemAdd} onPress={() => { }}>
-              <Icon name="camera-outline" size={32} color="#888" />
-              <Text style={styles.addText}>Adicionar foto</Text>
-            </TouchableOpacity>
-
             <TouchableOpacity style={styles.itemAdd} onPress={() => { }}>
               <Icon name="camera-outline" size={32} color="#888" />
               <Text style={styles.addText}>Adicionar foto</Text>
@@ -121,6 +119,8 @@ export default function Index() {
             ))}
           </View>
         </InputGroup>
+
+        <Button text="Criar ordem de serviço" />
       </View>
     </Scroll >
   )

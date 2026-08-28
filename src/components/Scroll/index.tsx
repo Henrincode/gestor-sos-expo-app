@@ -4,7 +4,7 @@ import { View, ViewStyle } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-const NAVBAR_HEIGHT = 100
+const NAVBAR_HEIGHT = 110
 
 type Props = {
   children: ReactNode

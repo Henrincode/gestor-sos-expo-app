@@ -57,7 +57,7 @@ export default function Input({
       {icon && <Icon name={icon} size={size * 1.3} />}
       <TextInput
         multiline={multiline}
-        numberOfLines={numberOfLines || 4}
+        // numberOfLines={numberOfLines || 4}
         textAlignVertical="top"
         defaultValue={newValue}
         onChangeText={setValue}
@@ -67,7 +67,7 @@ export default function Input({
         autoCapitalize={disableAuto ? 'none' : 'sentences'}
         autoCorrect={!disableAuto}
         placeholderTextColor={placeholderStyle}
-        style={[{ flex: 1, fontSize: size, paddingVertical: 10, paddingHorizontal: 4 }, multiline && { height: 200 }]}
+        style={[{ flex: 1, fontSize: size, paddingVertical: 10, paddingHorizontal: 4 }, multiline && { minHeight: 100 }]}
 
       />
     </View>
