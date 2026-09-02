@@ -32,19 +32,19 @@ export default function Index() {
     <View style={styles.container}>
       <Container gap={20}>
         <InputGroup>
-          <Label icon="account" text="Nome" />
+          <Label icon="person" text="Nome" />
           <Input value={name} setValue={setName} />
         </InputGroup>
         <InputGroup>
-          <Label icon="email" text="E-Mail" />
+          <Label icon="mail" text="E-Mail" />
           <Input value={email} setValue={setEmail} />
         </InputGroup>
         <InputGroup>
-          <Label icon="form-textbox-password" text="Senha" />
+          <Label icon="lock-closed" text="Senha" />
           <Input value={password} setValue={setPassword} password />
         </InputGroup>
         <InputGroup>
-          <Label icon="form-textbox-password" text="Confirmar senha" />
+          <Label icon="lock-closed" text="Confirmar senha" />
           <Input value={passwordConfir} setValue={setPasswordConfir} password />
         </InputGroup>
         <View style={styles.buttons}>

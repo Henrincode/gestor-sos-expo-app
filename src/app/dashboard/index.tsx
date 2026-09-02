@@ -8,9 +8,29 @@ import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 import styles from "./styles";
 
+type ListaType = {
+  idStatus: number
+  status: 'completed' | 'in_progress' | 'pending'
+}
+
 const PADDING = [16, 4]
 
 const FILTER_LIST = ['Todas as OS', 'Pendentes', 'Em andamento', 'Concluídas']
+
+const LISTA: ListaType[] = [
+  { idStatus: 3, status: 'completed' },
+  { idStatus: 3, status: 'completed' },
+  { idStatus: 2, status: 'in_progress' },
+  { idStatus: 1, status: 'pending' },
+  { idStatus: 2, status: 'in_progress' },
+  { idStatus: 3, status: 'completed' },
+  { idStatus: 3, status: 'completed' },
+  { idStatus: 2, status: 'in_progress' },
+  { idStatus: 1, status: 'pending' },
+  { idStatus: 2, status: 'in_progress' },
+  { idStatus: 1, status: 'pending' },
+  { idStatus: 1, status: 'pending' },
+]
 
 export default function New() {
 
@@ -52,14 +72,12 @@ export default function New() {
       </View>
 
       {/* osList */}
+      {/* CRIAR O FILTRO COM OS BOTÕES DO TOPO DA TELA */}
       <View style={{ gap: 10, width: '100%', paddingHorizontal: 10 }}>
         <Text style={{ fontSize: 24 }}>Lista de OS</Text>
-        <CardOS status="completed" />
-        <CardOS status="in_progress" />
-        <CardOS status="pending" />
-        <CardOS status="completed" />
-        <CardOS status="in_progress" />
-        <CardOS status="pending" />
+        {LISTA.map((l, i) => (
+          <CardOS key={i} status={l.status} />
+        ))}
       </View>
     </Scroll>
   )

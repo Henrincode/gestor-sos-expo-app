@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar"
 import { ReactNode } from "react"
 import { View, ViewStyle } from "react-native"
 import { KeyboardAwareScrollView } from "react-native-keyboard-controller"
@@ -20,7 +19,6 @@ export default function Scroll({ children, style = {}, nav = false }: Props) {
 
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar style="dark" />
 
       <KeyboardAwareScrollView
         bottomOffset={30}

@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
     gap: 8
   },
   containerIcon: {
+    padding: 8,
     borderRadius: 8,
     backgroundColor: tailwindColors.blue[200]
   },

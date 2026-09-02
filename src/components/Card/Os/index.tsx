@@ -1,6 +1,7 @@
 import Icon from "@/components/Icon";
 import tw from "@/styles/tailwindColors";
-import { StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const STATUS_LIST = {
   pending: {
@@ -8,7 +9,7 @@ const STATUS_LIST = {
     color: tw.blue['600']
   },
   in_progress: {
-    name: 'Em Progresso',
+    name: 'Em Andamento',
     color: tw.orange['600']
   },
   completed: {
@@ -23,7 +24,7 @@ interface Props {
 
 export default function CardOS({ status = 'pending' }: Props) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity onPress={() => router.push('/dashboard/order')} style={styles.container}>
       <View style={{ flexDirection: 'row' }}>
         {/* bar */}
         <View style={styles.bar}></View>
@@ -68,7 +69,7 @@ export default function CardOS({ status = 'pending' }: Props) {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

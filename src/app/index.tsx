@@ -13,7 +13,7 @@ export default function Index() {
 
   const [value, setValue] = useState('')
 
-  return <Redirect href={'/dashboard/order'} />
+  // return <Redirect href={'/dashboard/order'} />
 
   return (
     <View style={styles.container} >
@@ -23,16 +23,16 @@ export default function Index() {
       {/* form */}
       <Container gap={20}>
         <InputGroup >
-          <Label icon="email-outline" text="E-Mail" />
+          <Label icon="mail-outline" text="E-Mail" />
           <Input value={value} setValue={setValue} type="email-address" placeholder="seu@email.com" />
         </InputGroup>
         <InputGroup >
-          <Label icon="form-textbox-password" text="Senha" />
+          <Label icon="lock-closed-outline" text="Senha" />
           <Input value={value} setValue={setValue} placeholder="Su@S3nh@!" password />
         </InputGroup>
         <View style={styles.buttons}>
           <Button onPress={() => router.replace('/dashboard')} text="Entrar" flex />
-          <Button onPress={() => router.replace('/acc/create')} text="Cadastrar" flex />
+          <Button onPress={() => router.push('/acc/create')} text="Cadastrar" flex />
         </View>
       </Container>
     </View>

@@ -15,7 +15,7 @@ export default function Logo({ size = 42, title, subTitle }: Props) {
             <View style={styles.containerLogo}>
                 {/* icon box */}
                 <View style={styles.containerIcon}>
-                    <Icon name="hammer-screwdriver" size={size * 1.5} color={appColors.logo.text} />
+                    <Icon name="construct" size={size * 1.5} color={appColors.logo.text} />
                 </View>
                 <View>
                     {title && <Text style={[styles.text, { fontSize: size }]}>Gestor SOS</Text>}
