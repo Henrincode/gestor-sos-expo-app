@@ -29,7 +29,7 @@ const PARTICIPANTES = [
     id: '7564',
     nome: 'João Lopes',
     setor: 'Eletricista',
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1CsPL-CjP5fagDdznpG5FA-EY0bDn6QFrHTl1qfJjRg&s=10'
+    // image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1CsPL-CjP5fagDdznpG5FA-EY0bDn6QFrHTl1qfJjRg&s=10'
   },
 ]
 

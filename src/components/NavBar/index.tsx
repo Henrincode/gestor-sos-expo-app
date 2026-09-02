@@ -37,6 +37,13 @@ export default function NavBar() {
   return (
 <View style={[styles.navBar, { marginBottom: insets.bottom + 10 }]}>
   <NavBarButton
+    text="Empresa"
+    icon={path === '/dashboard/firm' ? 'business' : 'business-outline'}
+    active={path === '/dashboard/firm'}
+    onPress={() => path !== '/dashboard/firm' && router.push('/dashboard/firm')}
+  />
+
+  <NavBarButton
     text="Ordens"
     icon={path === '/dashboard' ? 'document-text' : 'document-text-outline'}
     active={path === '/dashboard'}
