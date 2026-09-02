@@ -7,7 +7,7 @@ export default function Settings() {
 
   const [texto, setTexto] = useState('Sem mensagem')
 
-  const rota = 'http://192.168.15.2:3000/api/teste'
+  const rota = 'http://192.168.56.1:3000/api/teste'
 
   async function testeAPI() {
     const response = await fetch(rota)

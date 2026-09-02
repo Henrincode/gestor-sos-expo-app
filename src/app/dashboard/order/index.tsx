@@ -1,9 +1,9 @@
+import Button from "@/components/Button";
 import ProfileMini from "@/components/Profile/Mini";
 import Scroll from "@/components/Scroll";
 import tw from "@/styles/tailwindColors";
 import { Text, View } from "react-native";
 import styles from "./styles";
-import Button from "@/components/Button";
 
 const ORDER = {
   title: 'Reparo Elétrico no corredor',
@@ -29,7 +29,7 @@ const PARTICIPANTES = [
     id: '7564',
     nome: 'João Lopes',
     setor: 'Eletricista',
-    // image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1CsPL-CjP5fagDdznpG5FA-EY0bDn6QFrHTl1qfJjRg&s=10'
+    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1CsPL-CjP5fagDdznpG5FA-EY0bDn6QFrHTl1qfJjRg&s=10'
   },
 ]
 
@@ -38,13 +38,7 @@ const ATT = [
     created: '15/06/2026',
     our: '08',
     min: '32',
-    title: 'Chamado aberto',
-    desc: 'Descrição'
-  },
-  {
-    created: '15/06/2026',
-    our: '08',
-    min: '32',
+    usuario: 'Fulano Silva',
     title: 'Pessoas para resolver',
     desc: 'Para este empenho foram chamados os colaboradores João e Fulano, ambos eletricistas, primeiramente estarão analisando o problema e em breve darão mais detalhes.'
   },
@@ -52,6 +46,7 @@ const ATT = [
     created: '15/06/2026',
     our: '08',
     min: '32',
+    usuario: 'João Lopes',
     title: 'Encontrada fonte do problema',
     desc: 'Fui informado que o problema é no DR que já não esta mais segurando carga, será solicitado a compra de um novo DR.'
   },
@@ -59,6 +54,7 @@ const ATT = [
     created: '15/06/2026',
     our: '08',
     min: '32',
+    usuario: 'João Lopes',
     title: 'Substituição do DR',
     desc: 'Realizado a troca para o novo DR, feito diversos testes e o problema foi resolvido.'
   }
@@ -169,6 +165,8 @@ export default function Index({
           <View style={{ flex: 1 }}>
             {ATT.map((a, i) => (
               <View key={i} style={{ paddingVertical: 20 }}>
+                {/* usuario */}
+                <Text style={{fontSize: 16, fontWeight: 'bold'}}>{a.usuario}</Text>
                 {/* data */}
                 <Text style={{ fontSize: 12 }}>
                   {a.created} • {a.our}h{a.min}m
@@ -187,7 +185,7 @@ export default function Index({
         </View>
       </View>
 
-      <View style={[styles.box, {flexDirection: 'row'}]}>
+      <View style={[styles.box, { flexDirection: 'row' }]}>
         <Button text="Atualizar" flex />
         <Button text="Finalizar" type="success" flex />
       </View>
