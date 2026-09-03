@@ -3,15 +3,19 @@ import CardOS from "@/components/Card/Os";
 import Input from "@/components/Form/Input";
 import Scroll from "@/components/Scroll";
 import appColors from "@/styles/appColors";
-import tailwindColors from "@/styles/tailwindColors";
-import { useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { default as tailwindColors, default as tw } from "@/styles/tailwindColors";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useEffect, useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
+import { router } from "expo-router";
 
 type ListaType = {
   idStatus: number
   status: 'completed' | 'in_progress' | 'pending'
 }
+
+const STORAGE_FIRM = '@gestor_sos:firm'
 
 const PADDING = [16, 4]
 
@@ -39,14 +43,33 @@ export default function Index() {
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState(FILTER_LIST[0])
 
-  if(!firm) return (
-    <Scroll nav style={{justifyContent: 'center', alignItems: 'center'}}>
-      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Selecione uma empresa</Text>
+  useEffect(() => {
+    const loadFirm = async () => {
+      const selectedFirm = await AsyncStorage.getItem(STORAGE_FIRM)
+
+      if (selectedFirm) {
+        setFirm(JSON.parse(selectedFirm))
+      }
+    }
+    loadFirm()
+  }, [])
+
+  if (!firm) return (
+    <Scroll nav style={{ justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Selecione uma empresa</Text>
     </Scroll>
   )
 
   return (
     <Scroll nav style={styles.container}>
+      <TouchableOpacity onPress={() => router.push('/dashboard/firm')}>
+        <Text style={{
+          width: 300, padding: 10, borderRadius: 999,
+          fontSize: 16, fontWeight: 'bold', textAlign: 'center',
+          color: tw.white, backgroundColor: tw.blue['600']
+        }}>Senac Americana</Text>
+      </TouchableOpacity>
+
       <View style={{ gap: 10 }}>
         {/* wrapper */}
         <View style={{ gap: 10, paddingLeft: 10, paddingRight: 10, width: '100%', }}>

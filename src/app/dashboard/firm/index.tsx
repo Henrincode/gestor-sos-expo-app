@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
+const STORAGE_FIRM = '@gestor_sos:firm'
 
 const DATA_EMPRESAS = [
   {
@@ -29,29 +30,42 @@ export default function Index() {
   const [firm, setFirm] = useState<number | null>(null)
 
   useEffect(() => {
-    const selectedFirm = async () => {
-      const checkFirm = await AsyncStorage.getItem('@gestor_sos:firm')
+    const loadFirm = async () => {
+      const selectedFirm = await AsyncStorage.getItem(STORAGE_FIRM)
+
+      if (selectedFirm) {
+        setFirm(JSON.parse(selectedFirm))
+      }
+
     }
-    selectedFirm()
+    loadFirm()
   }, [])
 
-  async function selectFirm(id: number) {
-    
+  async function updateFirm(id: number) {
+    await AsyncStorage.setItem(STORAGE_FIRM, JSON.stringify(id))
+    setFirm(id)
   }
 
   return (
-    // <View style={{justifyContent: 'center', alignItems: 'center'}}>
     <Scroll nav style={{ alignItems: 'center', gap: 12, paddingHorizontal: 10 }}>
+      <Text style={{ fontSize: 20 }}>Selecionar empresa</Text>
+
       {DATA_EMPRESAS.map((e, i) => (
-        <TouchableOpacity style={{ width: '100%' }}>
-          <Text key={e.id} style={{
+        <TouchableOpacity onPress={() => updateFirm(e.id)} key={e.id} style={{ width: '100%' }}>
+
+          <Text style={{
             padding: 20, borderRadius: 999,
             fontSize: 30, textAlign: 'center',
-            color: tw.white, backgroundColor: tw.blue['600']
-          }}>{e.nome}</Text>
+            color: tw.white, backgroundColor: e.id === firm ? tw.blue['600'] : tw.blue['400']
+          }}>
+            {e.nome}
+          </Text>
+
         </TouchableOpacity>
       ))}
+
+      <Text>{firm || 'Empresa não selecionada'}</Text>
     </Scroll>
-    // </View>
   )
+
 }
