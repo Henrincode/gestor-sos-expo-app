@@ -32,10 +32,18 @@ const LISTA: ListaType[] = [
   { idStatus: 1, status: 'pending' },
 ]
 
-export default function New() {
+export default function Index() {
+
+  const [firm, setFirm] = useState<number | null>(null)
 
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState(FILTER_LIST[0])
+
+  if(!firm) return (
+    <Scroll nav style={{justifyContent: 'center', alignItems: 'center'}}>
+      <Text style={{fontSize: 16, fontWeight: 'bold'}}>Selecione uma empresa</Text>
+    </Scroll>
+  )
 
   return (
     <Scroll nav style={styles.container}>
