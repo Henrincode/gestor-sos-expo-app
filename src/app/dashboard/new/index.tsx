@@ -40,7 +40,7 @@ export default function Index() {
   const [teste, setTeste] = useState('')
 
   return (
-    <Scroll nav style={styles.container}>
+    <Scroll safeArea nav style={styles.container}>
       {/* header */}
       <View style={{ width: '100%', paddingHorizontal: 10 }}>
         <Text style={{ fontSize: 24 }}>

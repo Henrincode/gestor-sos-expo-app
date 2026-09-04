@@ -35,34 +35,35 @@ export default function NavBar() {
   }, [path])
 
   return (
-<View style={[styles.navBar, { marginBottom: insets.bottom + 10 }]}>
-  <NavBarButton
-    text="Empresa"
-    icon={path === '/dashboard/firm' ? 'business' : 'business-outline'}
-    active={path === '/dashboard/firm'}
-    onPress={() => path !== '/dashboard/firm' && router.push('/dashboard/firm')}
-  />
+    <View style={[styles.navBar, { marginBottom: insets.bottom + 10 }]}>
 
-  <NavBarButton
-    text="Ordens"
-    icon={path === '/dashboard' ? 'document-text' : 'document-text-outline'}
-    active={path === '/dashboard'}
-    onPress={() => path !== '/dashboard' && router.push('/dashboard')}
-  />
+      <NavBarButton
+        text="Empresa"
+        icon={path === '/dashboard/firm' ? 'business' : 'business-outline'}
+        active={path === '/dashboard/firm'}
+        onPress={() => path !== '/dashboard/firm' && router.push('/dashboard/firm')}
+      />
 
-  <NavBarButton
-    text="Nova OS"
-    icon={path === '/dashboard/new' ? 'add-circle' : 'add-circle-outline'}
-    active={path === '/dashboard/new'}
-    onPress={() => path !== '/dashboard/new' && router.push('/dashboard/new')}
-  />
+      <NavBarButton
+        text="Ordens"
+        icon={path === '/dashboard' ? 'document-text' : 'document-text-outline'}
+        active={path === '/dashboard'}
+        onPress={() => path !== '/dashboard' && router.push('/dashboard')}
+      />
 
-  <NavBarButton
-    text="Perfil"
-    icon={path === '/dashboard/settings' ? 'person' : 'person-outline'}
-    active={path === '/dashboard/settings'}
-    onPress={() => path !== '/dashboard/settings' && router.push('/dashboard/settings')}
-  />
-</View>
+      <NavBarButton
+        text="Nova OS"
+        icon={path === '/dashboard/new' ? 'add-circle' : 'add-circle-outline'}
+        active={path === '/dashboard/new'}
+        onPress={() => path !== '/dashboard/new' && router.push('/dashboard/new')}
+      />
+
+      <NavBarButton
+        text="Perfil"
+        icon={path === '/dashboard/settings' ? 'person' : 'person-outline'}
+        active={path === '/dashboard/settings'}
+        onPress={() => path !== '/dashboard/settings' && router.push('/dashboard/settings')}
+      />
+    </View>
   )
 }

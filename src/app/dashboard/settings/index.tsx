@@ -21,7 +21,7 @@ export default function Settings() {
 
   
   return (
-    <Scroll nav style={styles.container}>
+    <Scroll safeArea nav style={styles.container}>
       <Text>
         {texto}
       </Text>

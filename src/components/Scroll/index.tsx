@@ -8,10 +8,11 @@ const NAVBAR_HEIGHT = 110
 type Props = {
   children: ReactNode
   style?: ViewStyle
+  safeArea?: boolean
   nav?: boolean
 }
 
-export default function Scroll({ children, style = {}, nav = false }: Props) {
+export default function Scroll({ children, style = {}, safeArea = false, nav = false }: Props) {
 
   const insets = useSafeAreaInsets()
 
@@ -25,16 +26,16 @@ export default function Scroll({ children, style = {}, nav = false }: Props) {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[
-          { flex: 0, flexGrow: 1, paddingTop: insets.top + 10, paddingBottom }
+          safeArea ? { flex: 0, flexGrow: 1, paddingTop: insets.top + 10, paddingBottom } : {},
         ]}
       >
+        {/* preciso de uma view para o children para não competir gap com a view de espaçamento do key... */}
         <View style={[
-          style,
-          { flex: 0, flexGrow: 1, width: '100%' },
+          { flex: 0, flexGrow: 1 },
+          style
         ]}>
           {children}
         </View>
-        {/* <View style={{ width: '100%', height: 1, marginTop: 20, backgroundColor: tailwindColors.blue['200'] }}></View> */}
       </KeyboardAwareScrollView>
 
     </View>

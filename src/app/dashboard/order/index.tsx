@@ -72,7 +72,7 @@ export default function Index({
   image = ORDER.image
 }) {
   return (
-    <Scroll nav style={styles.container}>
+    <Scroll safeArea nav style={styles.container}>
 
       {/* title */}
       <View style={styles.box}>
@@ -157,7 +157,7 @@ export default function Index({
 
       <View style={styles.box}>
         <Text style={{ fontSize: 20 }}>
-          Atualizações
+          Comentários e atividades
         </Text>
 
         <View style={{ flexDirection: 'row', gap: 10 }}>
@@ -166,7 +166,7 @@ export default function Index({
             {ATT.map((a, i) => (
               <View key={i} style={{ paddingVertical: 20 }}>
                 {/* usuario */}
-                <Text style={{fontSize: 16, fontWeight: 'bold'}}>{a.usuario}</Text>
+                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{a.usuario}</Text>
                 {/* data */}
                 <Text style={{ fontSize: 12 }}>
                   {a.created} • {a.our}h{a.min}m

@@ -48,7 +48,7 @@ export default function Index() {
   }
 
   return (
-    <Scroll nav style={{ alignItems: 'center', gap: 12, paddingHorizontal: 10 }}>
+    <Scroll safeArea nav style={{ alignItems: 'center', gap: 12, paddingHorizontal: 10 }}>
       <Text style={{ fontSize: 20 }}>Selecionar empresa</Text>
 
       {DATA_EMPRESAS.map((e, i) => (
@@ -64,8 +64,6 @@ export default function Index() {
 
         </TouchableOpacity>
       ))}
-
-      <Text>{firm || 'Empresa não selecionada'}</Text>
     </Scroll>
   )
 
