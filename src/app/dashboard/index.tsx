@@ -5,10 +5,10 @@ import Scroll from "@/components/Scroll";
 import appColors from "@/styles/appColors";
 import { default as tailwindColors, default as tw } from "@/styles/tailwindColors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
-import { router } from "expo-router";
 
 type ListaType = {
   idStatus: number
@@ -16,8 +16,6 @@ type ListaType = {
 }
 
 const STORAGE_FIRM = '@gestor_sos:firm'
-
-const PADDING = [16, 4]
 
 const FILTER_LIST = ['Todas as OS', 'Pendentes', 'Em andamento', 'Concluídas']
 

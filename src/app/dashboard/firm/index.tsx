@@ -41,6 +41,7 @@ export default function Index() {
     loadFirm()
   }, [])
 
+  // muda a empresa selecionada
   async function updateFirm(id: number) {
     await AsyncStorage.setItem(STORAGE_FIRM, JSON.stringify(id))
     setFirm(id)
