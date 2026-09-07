@@ -1,6 +1,7 @@
 import auth from "@/utils/auth";
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
+import * as SecureStore from "expo-secure-store"
 
 export default function Index() {
 
@@ -11,7 +12,12 @@ export default function Index() {
       email: 'contato@henriquemarques.com.br',
       password: '6969'
     }
-    await auth.login(dados)
+    const user = await auth.check()
+
+    console.log('11', user)
+
+    // await SecureStore.deleteItemAsync('auth_token')
+
   }
 
   useEffect(() => {
