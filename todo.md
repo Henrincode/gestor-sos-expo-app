@@ -1,0 +1,1 @@
+- melhorar a mensagem de campos inválidos na hora do cadastro

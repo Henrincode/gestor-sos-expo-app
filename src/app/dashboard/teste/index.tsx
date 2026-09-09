@@ -12,11 +12,8 @@ export default function Index() {
       email: 'contato@henriquemarques.com.br',
       password: '6969'
     }
-    const user = await auth.check()
 
-    console.log('11', user)
-
-    // await SecureStore.deleteItemAsync('auth_token')
+    
 
   }
 

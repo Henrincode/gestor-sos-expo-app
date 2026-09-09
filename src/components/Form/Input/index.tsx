@@ -1,6 +1,6 @@
 import Icon from "@/components/Icon";
 import appColors from "@/styles/appColors";
-import { ComponentProps, useEffect, useState } from "react";
+import { ComponentProps, useState } from "react";
 import { TextInput, TextInputProps, View, ViewStyle } from "react-native";
 import styles from "./styles";
 
@@ -10,12 +10,13 @@ type Props = {
   size?: number
   type?: TextInputProps['keyboardType']
   placeholder?: string
-  placeholderStyle?: TextInputProps['placeholderTextColor']
   icon?: ComponentProps<typeof Icon>['name']
-  style?: ViewStyle
   password?: boolean
   multiline?: boolean
   numberOfLines?: number
+  style?: ViewStyle
+  styleText?: TextInputProps['style']
+  StylePlaceholder?: TextInputProps['placeholderTextColor']
 }
 
 export default function Input({
@@ -24,9 +25,10 @@ export default function Input({
   size = 24,
   type = 'default',
   placeholder = '',
-  placeholderStyle = appColors.input.placeholder,
-  icon,
   style,
+  styleText,
+  StylePlaceholder = appColors.input.placeholder,
+  icon,
   password = false,
   multiline = false,
   numberOfLines = undefined
@@ -43,15 +45,6 @@ export default function Input({
     || type === 'number-pad'
     || type === 'numbers-and-punctuation'
 
-  // useEffect(() => {
-  //   const intervalo = setTimeout(() => {
-  //     setNewValue(value ?? '');
-  //   }, 1500);
-  //   return () => clearTimeout(intervalo);
-  // }, [value]);
-
-  useEffect(() => setNewValue(value), [])
-
   return (
     <View style={[styles.component, style]}>
       {icon && <Icon name={icon} size={size * 1.3} />}
@@ -66,8 +59,8 @@ export default function Input({
         secureTextEntry={password}
         autoCapitalize={disableAuto ? 'none' : 'sentences'}
         autoCorrect={!disableAuto}
-        placeholderTextColor={placeholderStyle}
-        style={[{ flex: 1, fontSize: size, paddingVertical: 10, paddingHorizontal: 4 }, multiline && { minHeight: 100 }]}
+        placeholderTextColor={StylePlaceholder}
+        style={[{ flex: 1, fontSize: size, paddingVertical: 10, paddingHorizontal: 4 }, multiline && { minHeight: 100 }, styleText]}
 
       />
     </View>

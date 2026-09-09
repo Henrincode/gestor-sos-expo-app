@@ -1,6 +1,5 @@
+import { API_URL } from '@/CONSTANTS'
 import * as SecureStore from 'expo-secure-store'
-
-const API_URL = "http://192.168.15.2:3000/api"
 
 type Login = {
   email: string
@@ -12,6 +11,12 @@ type CheckReturn = {
   name: string,
   email_id: number,
   email: string
+}
+
+type FormCreate = {
+  name: string
+  email: string
+  password: string
 }
 
 // ----------
@@ -50,43 +55,45 @@ async function login(params: Login) {
   // salva o token e retorna true
   await SecureStore.setItemAsync('auth_token', data.token)
 
-  return {success: true, message: 'Login realizado com sucesso!'}
+  return { success: true, message: 'Login realizado com sucesso!' }
 }
 
-// ----------
-// check
-// ----------
-const check = async () => {
-  // recupera o token e faz validação
-  const auth_token = await SecureStore.getItemAsync('auth_token')
+const create = (form: FormCreate) => { }
 
-  const response = await fetch(`${API_URL}/auth`, {
-    method: "POST",
-    headers: {
-      "Content-Type": 'application/json',
-      "auth_token": `${auth_token}`
-    },
-    credentials: "omit" // rejeita os cookies que o servidor envia no header
-  })
+// // ----------
+// // check
+// // ----------
+// const check = async () => {
+//   // recupera o token e faz validação
+//   const auth_token = await SecureStore.getItemAsync('auth_token')
 
-  // trata os dados e procura erros
-  if(!response.ok){
-    return {success: false, message: "Erro interno do servidor."}
-  }
+//   const response = await fetch(`${API_URL}/auth`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": 'application/json',
+//       "auth_token": `${auth_token}`
+//     },
+//     credentials: "omit" // rejeita os cookies que o servidor envia no header
+//   })
 
-  const data = await response.json()
-  
-  if(data.success) {
-    return null
-  }
+//   // trata os dados e procura erros
+//   if(!response.ok){
+//     return {success: false, message: "Erro interno do servidor."}
+//   }
 
-  // se estiver tudo ok retorna o usuário do token
-  return data.user
-}
+//   const data = await response.json()
+
+//   if(data.success) {
+//     return null
+//   }
+
+//   // se estiver tudo ok retorna o usuário do token
+//   return data.user
+// }
 
 const auth = {
   login,
-  check
+  // check
 }
 
 export default auth

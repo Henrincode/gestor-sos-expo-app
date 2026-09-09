@@ -26,7 +26,7 @@ export default function Scroll({ children, style = {}, safeArea = false, nav = f
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[
-          safeArea ? { flex: 0, flexGrow: 1, paddingTop: insets.top + 10, paddingBottom } : {},
+          safeArea && { flex: 0, flexGrow: 1, paddingTop: insets.top + 10, paddingBottom },
         ]}
       >
         {/* preciso de uma view para o children para não competir gap com a view de espaçamento do key... */}

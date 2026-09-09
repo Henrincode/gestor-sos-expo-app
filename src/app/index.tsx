@@ -13,7 +13,7 @@ export default function Index() {
 
   const [value, setValue] = useState('')
 
-  return <Redirect href={'/dashboard/teste'} />
+  // return <Redirect href={'/dashboard/teste'} />
 
   return (
     <View style={styles.container} >
