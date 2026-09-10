@@ -1,1 +1,2 @@
-- melhorar a mensagem de campos inválidos na hora do cadastro
+- Criar mensagens de erro melhores na função `auth.create()` e tratar um erro para "email já cadastrado"
+- Criar uma rota para depois que estiver logado

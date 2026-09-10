@@ -7,9 +7,10 @@ import Label from "@/components/Form/Label";
 import Logo from "@/components/Logo";
 import Scroll from "@/components/Scroll";
 import tw from "@/styles/tailwindColors";
+import auth from "@/utils/auth";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Alert, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import styles from "./styles";
 
 type Errors = {
@@ -27,9 +28,10 @@ export default function Index() {
 
   const [errors, setErrors] = useState<Errors>({})
 
-  function teste() {
+  async function teste() {
 
     // tratando erros do form
+    setErrors({})
     const newErrors: Errors = {}
     const nameErrors: string[] = []
     const emailErrors: string[] = []
@@ -92,10 +94,15 @@ export default function Index() {
       return
     }
 
-    Alert.alert('teste', 'testando')
+    const newUser = {
+      name, email, password
+    }
 
+    const data = await auth.create(newUser)
 
-
+    if (data.message === "E-Mail já existe") {
+      setErrors({email: ["Email já existe"]})
+    }
   }
 
   const styleError = (p: keyof Errors) => errors[p] && { borderColor: tw.red['600'], backgroundColor: tw.red['100'] }

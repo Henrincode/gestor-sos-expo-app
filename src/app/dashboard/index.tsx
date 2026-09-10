@@ -34,6 +34,8 @@ const LISTA: ListaType[] = [
   { idStatus: 1, status: 'pending' },
 ]
 
+// useEffect(() => { }, [])
+
 export default function Index() {
 
   const [firm, setFirm] = useState<number | null>(null)

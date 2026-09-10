@@ -58,7 +58,37 @@ async function login(params: Login) {
   return { success: true, message: 'Login realizado com sucesso!' }
 }
 
-const create = (form: FormCreate) => { }
+// ----------
+// create
+// ----------
+const create = async (form: FormCreate) => { 
+
+  if(!form) {
+    return {
+      success: false, message: "Erro ao fazer login"
+    }
+  }
+
+  // envia email e senha para criar usuário
+  const response = await fetch(`${API_URL}/auth/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(form)
+  })
+
+  if(!response.ok) return {
+    success: false, message: "Erro ao se conectar com o servidor"
+  }
+
+  const data = await response.json()
+  
+  console.log(data)
+
+  return data
+  
+ }
 
 // // ----------
 // // check
@@ -94,6 +124,7 @@ const create = (form: FormCreate) => { }
 const auth = {
   login,
   // check
+  create
 }
 
 export default auth
