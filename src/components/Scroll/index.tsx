@@ -19,7 +19,7 @@ export default function Scroll({ children, style = {}, safeArea = false, nav = f
   const paddingBottom = nav ? NAVBAR_HEIGHT + insets.bottom : insets.bottom + 10
 
   return (
-    <View style={{ flex: 1 }}>
+    // <View style={{ flex: 1 }}>
 
       <KeyboardAwareScrollView
         bottomOffset={30}
@@ -38,6 +38,6 @@ export default function Scroll({ children, style = {}, safeArea = false, nav = f
         </View>
       </KeyboardAwareScrollView>
 
-    </View>
+    // </View>
   )
 }
