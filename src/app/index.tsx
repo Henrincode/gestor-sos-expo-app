@@ -28,7 +28,7 @@ export default function Index() {
         </InputGroup>
         <InputGroup >
           <Label icon="lock-closed-outline" text="Senha" />
-          <Input value={value} setValue={setValue} placeholder="Su@S3nh@!" password />
+          <Input value={value} setValue={setValue} placeholder="ex: Su@S3nh@!" password />
         </InputGroup>
         <View style={styles.buttons}>
           <Button onPress={() => router.replace('/dashboard')} text="Entrar" flex />

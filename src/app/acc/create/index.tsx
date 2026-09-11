@@ -10,7 +10,7 @@ import tw from "@/styles/tailwindColors";
 import auth from "@/utils/auth";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 type Errors = {
@@ -21,10 +21,10 @@ type Errors = {
 
 export default function Index() {
 
-  const [name, setName] = useState('user teste')
-  const [email, setEmail] = useState('teste@mail.com')
-  const [password, setPassword] = useState('12345678')
-  const [passwordConfir, setPasswordConfir] = useState('12345678')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfir, setPasswordConfir] = useState('')
 
   const [errors, setErrors] = useState<Errors>({})
 
@@ -101,8 +101,14 @@ export default function Index() {
     const data = await auth.create(newUser)
 
     if (data.message === "E-Mail já existe") {
-      setErrors({email: ["Email já existe"]})
+      setErrors({ email: ["Email já existe"] })
     }
+
+
+  }
+
+  async function sair() {
+    const data = await auth.logout()
   }
 
   const styleError = (p: keyof Errors) => errors[p] && { borderColor: tw.red['600'], backgroundColor: tw.red['100'] }
@@ -110,7 +116,9 @@ export default function Index() {
   return (
     <Scroll nav safeArea style={styles.container}>
 
-      <Logo title subTitle />
+      <TouchableOpacity onPress={() => sair()}>
+        <Logo title subTitle />
+      </TouchableOpacity>
 
       <Container gap={20}>
 

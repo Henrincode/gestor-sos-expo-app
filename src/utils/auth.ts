@@ -121,10 +121,30 @@ const create = async (form: FormCreate) => {
 //   return data.user
 // }
 
+
+const logout = async () => { 
+
+  // faz logout
+  const response = await fetch(`${API_URL}/auth/logout`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+
+  const data = await response.json()
+  
+  console.log(data)
+
+  return data
+  
+ }
+
 const auth = {
   login,
   // check
-  create
+  create,
+  logout
 }
 
 export default auth
