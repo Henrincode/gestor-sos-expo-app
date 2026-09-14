@@ -1,5 +1,5 @@
-import { API_URL } from '@/CONSTANTS'
-import * as SecureStore from 'expo-secure-store'
+import { API_URL, STORAGE_LOGGED } from '@/CONSTANTS';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Login = {
   email: string
@@ -27,43 +27,39 @@ async function login(params: Login) {
     return { success: false, message: 'Nenhum dado foi enviado' }
   }
 
-  const { email, password } = params
+  try {
+    const { email, password } = params
 
-  // envia email e senha para fazer login
-  const response = await fetch(`${API_URL}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      email,
-      password
+    // envia email e senha para fazer login
+    const response = await fetch(`${API_URL}/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email,
+        password
+      })
     })
-  })
 
-  // trata os dados e procura erros
-  if (!response.ok) {
-    return { success: false, message: 'Erro interno do servidor.' }
+    if (response.status === 200) {
+      await AsyncStorage.setItem(STORAGE_LOGGED, "true")
+    }
+
+    const data = await response.json()
+    return { ok: response.ok, message: data.message }
+
+  } catch (error) {
+    console.error("ERROR AUTH LOGIN:", error)
   }
-
-  const data = await response.json()
-
-  if (!data.success) {
-    return data
-  }
-
-  // salva o token e retorna true
-  await SecureStore.setItemAsync('auth_token', data.token)
-
-  return { success: true, message: 'Login realizado com sucesso!' }
 }
 
 // ----------
 // create
 // ----------
-const create = async (form: FormCreate) => { 
+const create = async (form: FormCreate) => {
 
-  if(!form) {
+  if (!form) {
     return {
       success: false, message: "Erro ao fazer login"
     }
@@ -78,17 +74,17 @@ const create = async (form: FormCreate) => {
     body: JSON.stringify(form)
   })
 
-  if(!response.ok) return {
+  if (!response.ok) return {
     success: false, message: "Erro ao se conectar com o servidor"
   }
 
   const data = await response.json()
-  
+
   console.log(data)
 
   return data
-  
- }
+
+}
 
 // // ----------
 // // check
@@ -122,7 +118,7 @@ const create = async (form: FormCreate) => {
 // }
 
 
-const logout = async () => { 
+const logout = async () => {
 
   // faz logout
   const response = await fetch(`${API_URL}/auth/logout`, {
@@ -132,13 +128,21 @@ const logout = async () => {
     }
   })
 
-  const data = await response.json()
-  
-  console.log(data)
+  console.log("OKKKKKK", response.ok)
 
-  return data
-  
- }
+  // método não suportado
+  if (response.status === 405) {
+    console.log("ERROR AUTH LOGOUT: 405 método não suportado pela rota API")
+    return { ok: response.ok, message: "405 método não suportado pela rota API" }
+  }
+
+  // pega dados da requisição
+  const data = await response.json()
+
+  return { ok: response.ok, data }
+
+
+}
 
 const auth = {
   login,

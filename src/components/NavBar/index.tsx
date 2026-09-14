@@ -38,10 +38,10 @@ export default function NavBar() {
     <View style={[styles.navBar, { marginBottom: insets.bottom + 10 }]}>
 
       <NavBarButton
-        text="Empresa"
-        icon={path === '/dashboard/firm' ? 'business' : 'business-outline'}
-        active={path === '/dashboard/firm'}
-        onPress={() => path !== '/dashboard/firm' && router.push('/dashboard/firm')}
+        text="Empresas"
+        icon={path === '/dashboard/companies' ? 'business' : 'business-outline'}
+        active={path === '/dashboard/companies'}
+        onPress={() => path !== '/dashboard/companies' && router.push('/dashboard/companies')}
       />
 
       <NavBarButton

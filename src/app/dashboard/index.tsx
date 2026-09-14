@@ -56,13 +56,13 @@ export default function Index() {
 
   if (!firm) return (
     <Scroll safeArea nav style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Selecione uma empresa</Text>
+      <Button onPress={() => router.push("/")} width="80%" text="Selecione uma empresa" />
     </Scroll>
   )
 
   return (
     <Scroll safeArea nav style={styles.container}>
-      <TouchableOpacity onPress={() => router.push('/dashboard/firm')}>
+      <TouchableOpacity onPress={() => router.push('/dashboard/companies')}>
         <Text style={{
           width: 300, padding: 10, borderRadius: 999,
           fontSize: 16, fontWeight: 'bold', textAlign: 'center',
