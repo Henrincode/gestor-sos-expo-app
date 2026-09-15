@@ -1,14 +1,15 @@
 import Button from "@/components/Button";
 import Scroll from "@/components/Scroll";
+import auth from "@/services/auth";
+import { router } from "expo-router";
 import styles from "./styles";
-import auth from "@/utils/auth";
 
 export default function Settings() {
 
-const logout = async () => {
-  const data = await auth.logout()
-  console.log("logout no frontend", data)
-}
+  const logout = async () => {
+    const data = await auth.logout()
+    if (data.ok) router.replace("/")
+  }
 
   return (
     <Scroll safeArea nav style={styles.container}>

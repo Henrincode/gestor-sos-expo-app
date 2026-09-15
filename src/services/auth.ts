@@ -24,7 +24,7 @@ type FormCreate = {
 // ----------
 async function login(params: Login) {
   if (!params) {
-    return { success: false, message: 'Nenhum dado foi enviado' }
+    return { ok: false, message: 'Nenhum dado foi enviado' }
   }
 
   try {
@@ -51,6 +51,7 @@ async function login(params: Login) {
 
   } catch (error) {
     console.error("ERROR AUTH LOGIN:", error)
+    return { ok: false, message: "Erro de conexão" }
   }
 }
 
@@ -86,38 +87,6 @@ const create = async (form: FormCreate) => {
 
 }
 
-// // ----------
-// // check
-// // ----------
-// const check = async () => {
-//   // recupera o token e faz validação
-//   const auth_token = await SecureStore.getItemAsync('auth_token')
-
-//   const response = await fetch(`${API_URL}/auth`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": 'application/json',
-//       "auth_token": `${auth_token}`
-//     },
-//     credentials: "omit" // rejeita os cookies que o servidor envia no header
-//   })
-
-//   // trata os dados e procura erros
-//   if(!response.ok){
-//     return {success: false, message: "Erro interno do servidor."}
-//   }
-
-//   const data = await response.json()
-
-//   if(data.success) {
-//     return null
-//   }
-
-//   // se estiver tudo ok retorna o usuário do token
-//   return data.user
-// }
-
-
 const logout = async () => {
 
   // faz logout
@@ -128,8 +97,6 @@ const logout = async () => {
     }
   })
 
-  console.log("OKKKKKK", response.ok)
-
   // método não suportado
   if (response.status === 405) {
     console.log("ERROR AUTH LOGOUT: 405 método não suportado pela rota API")
@@ -139,14 +106,15 @@ const logout = async () => {
   // pega dados da requisição
   const data = await response.json()
 
+  if (response.ok) {
+    await AsyncStorage.removeItem(STORAGE_LOGGED)
+  }
+
   return { ok: response.ok, data }
-
-
 }
 
 const auth = {
   login,
-  // check
   create,
   logout
 }

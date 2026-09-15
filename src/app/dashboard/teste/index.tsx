@@ -1,11 +1,9 @@
-import auth from "@/utils/auth";
 import { useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import * as SecureStore from "expo-secure-store"
 
 export default function Index() {
 
-  const [dados, setDados] = useState<{mensagem: string}>()
+  const [dados, setDados] = useState<{ mensagem: string }>()
 
   const testConnect = async () => {
     const dados = {
@@ -13,7 +11,7 @@ export default function Index() {
       password: '6969'
     }
 
-    
+
 
   }
 
@@ -22,7 +20,7 @@ export default function Index() {
   }, [])
 
   return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>{dados?.mensagem ?? 'carregando'}</Text>
     </View>
   )

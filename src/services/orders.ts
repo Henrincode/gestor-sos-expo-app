@@ -1,18 +1,11 @@
 import { API_URL } from "@/CONSTANTS";
+import { Return } from "@/types/api";
 import { OrderList } from "@/types/orders";
-
-type Return = Promise<{
-  ok: true
-  data: OrderList[]
-} | {
-  ok: false
-  message: string
-}>
 
 // ----------
 // GET LIST BY COMPANY
 // ----------
-async function getListByCompany(company_id: number): Return {
+async function getListByCompany(company_id: number): Return<OrderList[]> {
   try {
     const response = await fetch(API_URL + "/api/company/" + company_id + "/order/list", {
       method: "POST",
@@ -26,10 +19,14 @@ async function getListByCompany(company_id: number): Return {
 
     const data: OrderList[] = await response.json()
 
-    return { ok: true, data }
+    return {
+      ok: true,
+      message: `Consulta no banco realizada com sucesso, ${data.length} registros encontrados`,
+      data
+    }
 
   } catch (error) {
-    console.error(error)
+    console.log("ERROR order.ts GET", error)
     return { ok: false, message: "Erro de conexão" }
   }
 }
@@ -37,7 +34,7 @@ async function getListByCompany(company_id: number): Return {
 // ----------
 // GET ORDER BY ID
 // ----------
-async function getById(id: number): Return {
+async function getById(id: number): Return<any> {
   try {
     const response = await fetch(API_URL + "/company/order/" + id, {
       method: "POST",
@@ -48,7 +45,7 @@ async function getById(id: number): Return {
 
     const data = await response.json()
 
-    return { ok: true, data }
+    return { ok: true, message: "Consulta realizada com sucesso.", data }
 
   } catch (error) {
     console.error("ERROR order.getById():", error)
@@ -59,10 +56,10 @@ async function getById(id: number): Return {
 // ----------
 // CREATE ORDER
 // ----------
-async function create(p: { name: string }): Return {
-  try {
+// async function create(p: { name: string }): Return {
+//   try {
 
-  } catch (error) {
-    console.error("ERROR order.create():", error)
-  }
-}
+//   } catch (error) {
+//     console.error("ERROR order.create():", error)
+//   }
+// }

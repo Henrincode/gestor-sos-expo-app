@@ -6,11 +6,11 @@ import InputGroup from "@/components/Form/InputGroup";
 import Label from "@/components/Form/Label";
 import Logo from "@/components/Logo";
 import Scroll from "@/components/Scroll";
+import auth from "@/services/auth";
 import tw from "@/styles/tailwindColors";
-import auth from "@/utils/auth";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import styles from "./styles";
 
 type Errors = {
@@ -28,7 +28,7 @@ export default function Index() {
 
   const [errors, setErrors] = useState<Errors>({})
 
-  async function teste() {
+  async function submit() {
 
     // tratando erros do form
     setErrors({})
@@ -94,21 +94,17 @@ export default function Index() {
       return
     }
 
+    // caso não exista erros cria o usuário
     const newUser = {
       name, email, password
     }
 
     const data = await auth.create(newUser)
 
+    // se email já existir cancela o cadastro
     if (data.message === "E-Mail já existe") {
       setErrors({ email: ["Email já existe"] })
     }
-
-
-  }
-
-  async function sair() {
-    const data = await auth.logout()
   }
 
   const styleError = (p: keyof Errors) => errors[p] && { borderColor: tw.red['600'], backgroundColor: tw.red['100'] }
@@ -116,9 +112,7 @@ export default function Index() {
   return (
     <Scroll nav safeArea style={styles.container}>
 
-      <TouchableOpacity onPress={() => sair()}>
-        <Logo title subTitle />
-      </TouchableOpacity>
+      <Logo title subTitle />
 
       <Container gap={20}>
 
@@ -151,7 +145,7 @@ export default function Index() {
           ))}
         </InputGroup>
         <View style={styles.buttons}>
-          <Button onPress={teste} text="Cadastrar" flex />
+          <Button onPress={submit} text="Cadastrar" flex />
           <ButtonLine onPress={() => router.back()} text="Já tenho conta" flex type="neutral" />
         </View>
 
