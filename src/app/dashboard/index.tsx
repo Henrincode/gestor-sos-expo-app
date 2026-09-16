@@ -56,7 +56,7 @@ export default function Index() {
 
   if (!firm) return (
     <Scroll safeArea nav style={{ justifyContent: 'center', alignItems: 'center' }}>
-      <Button onPress={() => router.push("/")} width="80%" text="Selecione uma empresa" />
+      <Button onPress={() => router.push("/dashboard/companies")} width="80%" text="Selecione uma empresa" />
     </Scroll>
   )
 
@@ -107,7 +107,7 @@ export default function Index() {
       <View style={{ gap: 10, width: '100%', paddingHorizontal: 10 }}>
         <Text style={{ fontSize: 24 }}>Lista de OS</Text>
         {LISTA.map((l, i) => (
-          <CardOS key={i} status={l.status} />
+          <CardOS key={i} status={l.status}  />
         ))}
       </View>
     </Scroll>

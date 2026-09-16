@@ -23,12 +23,20 @@ type FormCreate = {
 // login
 // ----------
 async function login(params: Login) {
-  if (!params) {
-    return { ok: false, message: 'Nenhum dado foi enviado' }
-  }
-
   try {
+    // verifica se os campos existem
     const { email, password } = params
+
+    if (!email || !password) {
+      return {
+        ok: false,
+        message: 'Informação faltando',
+        errors: {
+          ...(!email && { email: "E-Mail esta em branco" }),
+          ...(!password && { password: "Senha esta em branco" })
+        }
+      }
+    }
 
     // envia email e senha para fazer login
     const response = await fetch(`${API_URL}/auth/login`, {
@@ -42,6 +50,7 @@ async function login(params: Login) {
       })
     })
 
+    // se o login for success salva estado no storage
     if (response.status === 200) {
       await AsyncStorage.setItem(STORAGE_LOGGED, "true")
     }
@@ -50,40 +59,56 @@ async function login(params: Login) {
     return { ok: response.ok, message: data.message }
 
   } catch (error) {
-    console.error("ERROR AUTH LOGIN:", error)
-    return { ok: false, message: "Erro de conexão" }
+    console.error("ERROR SERVICE auth.login:", error)
+    return { ok: false, message: "Erro de conexão com API." }
   }
 }
 
 // ----------
 // create
 // ----------
-const create = async (form: FormCreate) => {
+const create = async (params: FormCreate) => {
+  try {
+    // verifica se os campos existem
+    const { name, email, password } = params
 
-  if (!form) {
-    return {
-      success: false, message: "Erro ao fazer login"
+    if (!name || !email || !password) {
+      return {
+        ok: false,
+        message: "Campo/s inválidos",
+        errors: {
+          ...(!name && { name: "Campo ausente" }),
+          ...(!email && { email: "Campo ausente" })
+        }
+      }
     }
+
+    // envia email e senha para criar usuário
+    const response = await fetch(`${API_URL}/auth/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password
+      })
+    })
+
+    if (!response.ok) return {
+      success: false, message: "Erro ao se conectar com o servidor"
+    }
+
+    await AsyncStorage.setItem(STORAGE_LOGGED, "true")
+
+    const data = await response.json()
+
+    return { ok: true, data }
+  } catch (error) {
+    console.log("ERROR SERVICE auth.create:", error)
+    return { ok: false, message: "Erro de conexão com API." }
   }
-
-  // envia email e senha para criar usuário
-  const response = await fetch(`${API_URL}/auth/create`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(form)
-  })
-
-  if (!response.ok) return {
-    success: false, message: "Erro ao se conectar com o servidor"
-  }
-
-  const data = await response.json()
-
-  console.log(data)
-
-  return data
 
 }
 
@@ -96,12 +121,6 @@ const logout = async () => {
       "Content-Type": "application/json"
     }
   })
-
-  // método não suportado
-  if (response.status === 405) {
-    console.log("ERROR AUTH LOGOUT: 405 método não suportado pela rota API")
-    return { ok: response.ok, message: "405 método não suportado pela rota API" }
-  }
 
   // pega dados da requisição
   const data = await response.json()

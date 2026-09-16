@@ -102,9 +102,12 @@ export default function Index() {
     const data = await auth.create(newUser)
 
     // se email já existir cancela o cadastro
-    if (data.message === "E-Mail já existe") {
-      setErrors({ email: ["Email já existe"] })
+    if (data.message === "E-Mail já cadastrado.") {
+      setErrors({ email: ["E-Mail já cadastrado."] })
+      return
     }
+
+    router.replace("/dashboard")
   }
 
   const styleError = (p: keyof Errors) => errors[p] && { borderColor: tw.red['600'], backgroundColor: tw.red['100'] }

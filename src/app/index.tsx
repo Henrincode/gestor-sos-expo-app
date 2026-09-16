@@ -36,15 +36,18 @@ export default function Index() {
   }, [])
 
   async function is_logged() {
-    const teste = await AsyncStorage.getItem(STORAGE_LOGGED)
-    if (teste) {
+    setLoading(true)
+    const logged = await AsyncStorage.getItem(STORAGE_LOGGED)
+    if (logged) {
       router.replace("/dashboard/companies")
     }
     setLoading(false)
   }
 
   async function submit() {
+
     setLoadSubmit(true)
+
     // tratando erros do form
     setErrors({})
     const newErrors: Errors = {}
