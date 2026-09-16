@@ -1,4 +1,5 @@
 import { API_URL, STORAGE_LOGGED } from '@/CONSTANTS';
+import { Return } from '@/types/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type Login = {
@@ -51,7 +52,7 @@ async function login(params: Login) {
     })
 
     // se o login for success salva estado no storage
-    if (response.status === 200) {
+    if (response.status === 201) {
       await AsyncStorage.setItem(STORAGE_LOGGED, "true")
     }
 
@@ -67,18 +68,18 @@ async function login(params: Login) {
 // ----------
 // create
 // ----------
-const create = async (params: FormCreate) => {
+const create = async (params: FormCreate): Return<{ token: string }> => {
   try {
     // verifica se os campos existem
     const { name, email, password } = params
 
     if (!name || !email || !password) {
       return {
-        ok: false,
+        success: false,
         message: "Campo/s inválidos",
         errors: {
-          ...(!name && { name: "Campo ausente" }),
-          ...(!email && { email: "Campo ausente" })
+          ...(!name && { name: ["Campo ausente"] }),
+          ...(!email && { email: ["Campo ausente"] })
         }
       }
     }
@@ -89,27 +90,39 @@ const create = async (params: FormCreate) => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        name,
-        email,
-        password
-      })
+      body: JSON.stringify({ name, email, password })
     })
 
-    if (!response.ok) return {
-      success: false, message: "Erro ao se conectar com o servidor"
+    const result = await response.json()
+
+    if (response.status === 409) return {
+      success: false,
+      message: "E-Mail já cadastrado.",
+      errors: { email: ["E-Mail já cadastrado."] }
     }
 
+    if (!response.ok) {
+      console.log("service/auth: chegamos aqui", response)
+      return {
+        success: false,
+        message: "Erro de conexão com API.",
+        errors: { api: ["Erro interno, tente mais tarde!"] }
+      }
+    }
+
+    // configura storage para logado
     await AsyncStorage.setItem(STORAGE_LOGGED, "true")
 
-    const data = await response.json()
+    return result
 
-    return { ok: true, data }
   } catch (error) {
-    console.log("ERROR SERVICE auth.create:", error)
-    return { ok: false, message: "Erro de conexão com API." }
+    console.log("ERROR service/auth.create:", error)
+    return {
+      success: false,
+      message: "Erro de conexão com API.",
+      errors: { api: ["Erro interno, tente mais tarde!"] }
+    }
   }
-
 }
 
 const logout = async () => {

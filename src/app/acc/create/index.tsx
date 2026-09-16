@@ -17,6 +17,7 @@ type Errors = {
   name?: string[]
   email?: string[]
   password?: string[]
+  api?: string[]
 }
 
 export default function Index() {
@@ -99,15 +100,19 @@ export default function Index() {
       name, email, password
     }
 
-    const data = await auth.create(newUser)
+    const result = await auth.create(newUser)
+
+    console.log('app/acc/create: result', result)
 
     // se email já existir cancela o cadastro
-    if (data.message === "E-Mail já cadastrado.") {
-      setErrors({ email: ["E-Mail já cadastrado."] })
+    if (!result.success) {
+      if (result.errors) setErrors(result.errors)
       return
     }
 
-    router.replace("/dashboard")
+    if (result.success) router.replace("/dashboard")
+    setErrors({ api: [result.message] })
+
   }
 
   const styleError = (p: keyof Errors) => errors[p] && { borderColor: tw.red['600'], backgroundColor: tw.red['100'] }
@@ -147,6 +152,9 @@ export default function Index() {
             <Text key={e} style={{ fontSize: 14, color: tw.red['600'] }}>    • {e}</Text>
           ))}
         </InputGroup>
+        {errors.api && (
+          <Text style={{ fontSize: 16, fontWeight: "900", textAlign: "center", color: tw.red["600"] }}>{errors.api[0]}</Text>
+        )}
         <View style={styles.buttons}>
           <Button onPress={submit} text="Cadastrar" flex />
           <ButtonLine onPress={() => router.back()} text="Já tenho conta" flex type="neutral" />
