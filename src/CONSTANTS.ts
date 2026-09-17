@@ -1,9 +1,9 @@
 // web
-// export const API_URL = "https://gestorsos.vercel.app/api"
+export const API_URL = "https://gestorsos.vercel.app/api"
 
 
 // senac
-export const API_URL = "http://192.168.56.1:3000/api"
+// export const API_URL = "http://192.168.56.1:3000/api"
 
 // casa
 // export const API_URL = "http://192.168.15.2:3000/api"
@@ -11,3 +11,4 @@ export const API_URL = "http://192.168.56.1:3000/api"
 
 
 export const STORAGE_LOGGED = '@gestor_sos:logged'
+export const STORAGE_COMPANY = '@gestor_sos:company'

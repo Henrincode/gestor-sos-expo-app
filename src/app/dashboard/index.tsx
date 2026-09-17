@@ -7,7 +7,7 @@ import { default as tailwindColors, default as tw } from "@/styles/tailwindColor
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Modal, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 type ListaType = {
@@ -38,6 +38,8 @@ const LISTA: ListaType[] = [
 
 export default function Index() {
 
+  const [loadPage, setLoadPage] = useState(false)
+  
   const [firm, setFirm] = useState<number | null>(null)
 
   const [search, setSearch] = useState('')
@@ -45,14 +47,18 @@ export default function Index() {
 
   useEffect(() => {
     const loadFirm = async () => {
+      setLoadPage(true)
       const selectedFirm = await AsyncStorage.getItem(STORAGE_FIRM)
 
       if (selectedFirm) {
         setFirm(JSON.parse(selectedFirm))
       }
+      setLoadPage(false)
     }
     loadFirm()
   }, [])
+
+  if(loadPage) return 
 
   if (!firm) return (
     <Scroll safeArea nav style={{ justifyContent: 'center', alignItems: 'center' }}>

@@ -96,8 +96,6 @@ export default function Index() {
 
     if (!data.message) router.replace('/dashboard')
 
-    console.log('data', data)
-
     setErrors({ api: ["Email ou senhas inválidos"] })
     setLoadSubmit(false)
   }
