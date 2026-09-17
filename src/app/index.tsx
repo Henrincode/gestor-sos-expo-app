@@ -94,7 +94,7 @@ export default function Index() {
 
     const data = await auth.login({ email, password })
 
-    if (data.ok) router.replace('/dashboard')
+    if (!data.message) router.replace('/dashboard')
 
     console.log('data', data)
 

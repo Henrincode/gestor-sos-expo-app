@@ -1,14 +1,12 @@
 export type Return<T> = Promise<
   | {
-    success: true
-    message: string
     data: T
+    message?: never
     errors?: never
   }
   | {
-    success: false
-    message: string
     data?: never
+    message: string
     errors?: Record<string, string[]>
   }
 >

@@ -102,16 +102,15 @@ export default function Index() {
 
     const result = await auth.create(newUser)
 
-    console.log('app/acc/create: result', result)
+    console.log('app/acc/create: result', JSON.stringify(result, null, 2))
 
     // se email já existir cancela o cadastro
-    if (!result.success) {
+    if (result.message) {
       if (result.errors) setErrors(result.errors)
       return
     }
 
-    if (result.success) router.replace("/dashboard")
-    setErrors({ api: [result.message] })
+    if (!result.message) router.replace("/dashboard")
 
   }
 

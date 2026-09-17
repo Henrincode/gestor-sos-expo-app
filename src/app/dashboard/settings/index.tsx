@@ -9,7 +9,7 @@ export default function Settings() {
   const logout = async () => {
     const data = await auth.logout()
     console.log('logout', data)
-    if (data.ok) router.replace("/")
+    if (data) router.replace("/")
   }
 
   return (

@@ -23,18 +23,17 @@ type FormCreate = {
 // ----------
 // login
 // ----------
-async function login(params: Login) {
+async function login(params: Login): Return<{ token: string }> {
   try {
     // verifica se os campos existem
     const { email, password } = params
 
     if (!email || !password) {
       return {
-        ok: false,
         message: 'Informação faltando',
         errors: {
-          ...(!email && { email: "E-Mail esta em branco" }),
-          ...(!password && { password: "Senha esta em branco" })
+          ...(!email && { email: ["E-Mail esta em branco"] }),
+          ...(!password && { password: ["Senha esta em branco"] })
         }
       }
     }
@@ -56,26 +55,33 @@ async function login(params: Login) {
       await AsyncStorage.setItem(STORAGE_LOGGED, "true")
     }
 
-    const data = await response.json()
-    return { ok: response.ok, message: data.message }
+    const result: { data: { token: string } } = await response.json()
+    return result
 
   } catch (error) {
-    console.error("ERROR SERVICE auth.login:", error)
-    return { ok: false, message: "Erro de conexão com API." }
+    console.error("ERROR services/auth.login:", error)
+    return { message: "Erro de conexão com API." }
   }
 }
 
 // ----------
 // create
 // ----------
-const create = async (params: FormCreate): Return<{ token: string }> => {
+const create = async (params: FormCreate): Return<{
+  id: string
+  name: string
+  emails: {
+    primary: boolean
+    email: string
+  }[]
+  token: string
+}> => {
   try {
     // verifica se os campos existem
     const { name, email, password } = params
 
     if (!name || !email || !password) {
       return {
-        success: false,
         message: "Campo/s inválidos",
         errors: {
           ...(!name && { name: ["Campo ausente"] }),
@@ -95,16 +101,15 @@ const create = async (params: FormCreate): Return<{ token: string }> => {
 
     const result = await response.json()
 
+    // se email já estiver cadastrado
     if (response.status === 409) return {
-      success: false,
       message: "E-Mail já cadastrado.",
       errors: { email: ["E-Mail já cadastrado."] }
     }
 
+    // se resposta for false
     if (!response.ok) {
-      console.log("service/auth: chegamos aqui", response)
       return {
-        success: false,
         message: "Erro de conexão com API.",
         errors: { api: ["Erro interno, tente mais tarde!"] }
       }
@@ -116,9 +121,8 @@ const create = async (params: FormCreate): Return<{ token: string }> => {
     return result
 
   } catch (error) {
-    console.log("ERROR service/auth.create:", error)
+    console.log("ERROR services/auth.create:", error)
     return {
-      success: false,
       message: "Erro de conexão com API.",
       errors: { api: ["Erro interno, tente mais tarde!"] }
     }
@@ -127,22 +131,30 @@ const create = async (params: FormCreate): Return<{ token: string }> => {
 
 const logout = async () => {
 
-  // faz logout
-  const response = await fetch(`${API_URL}/auth/logout`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
+  try {
+    // faz logout
+    const response = await fetch(`${API_URL}/auth/logout`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    // se api responder true remove o storage logged
+    if (response.ok) {
+      await AsyncStorage.removeItem(STORAGE_LOGGED)
+      return true
     }
-  })
 
-  // pega dados da requisição
-  const data = await response.json()
+    return false
 
-  if (response.ok) {
-    await AsyncStorage.removeItem(STORAGE_LOGGED)
+  } catch (error) {
+    console.log("ERROR services/auth.logout:", error)
+    return {
+      message: "Erro de conexão com API.",
+      errors: { api: ["Erro interno, tente mais tarde!"] }
+    }
   }
-
-  return { ok: response.ok, data }
 }
 
 const auth = {
